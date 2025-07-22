@@ -89,7 +89,7 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.write("**Sumber:** MPN G3 30 Juni 2025", expanded=False):
+st.write("**Sumber:** MPN G3 30 Juni 2025", expanded=False):
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
