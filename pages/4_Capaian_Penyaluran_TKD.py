@@ -91,14 +91,8 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.expander("📊 Analisis Penyaluran TKD", expanded=False):
-    st.write("""
-    **Tren Penyaluran TKD:**
-    - Realisasi penyaluran per jenis transfer
-    - Perbandingan dengan target anggaran
-    - Pertumbuhan penyaluran bulanan
-    - Daerah dengan penyerapan tertinggi
-    """)
+with st.expander("**SUMBER**", expanded=False):
+    st.write("""SINTESA 30 Juni 2025""")
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
@@ -111,7 +105,5 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
-- Data per tanggal 30 Juni 2025
-- Termasuk Dana Transfer Umum dan Khusus
-- Realisasi berdasarkan SP2D yang diterbitkan
+- Data yang disajikan adalah per tanggal 30 Juni 2025
 """)
