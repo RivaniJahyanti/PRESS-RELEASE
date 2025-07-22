@@ -106,12 +106,12 @@ def tampilkan_header(lebar_logo_kiri=255, lebar_intress=130, lebar_djpb=60, marg
 
     with col_logo_kiri:
         # Logo Kementerian Keuangan di sisi kiri
-        st.image("/content/logo/KEMENKEU.png", width=lebar_logo_kiri)
+        st.image("logo/KEMENKEU.png", width=lebar_logo_kiri)
 
     with col_logo_kanan:
         # Path logo
-        intress_path = "/content/logo/INTRESS.png"
-        djpb_path = "/content/logo/DJPb.png"
+        intress_path = "logo/INTRESS.png"
+        djpb_path = "logo/DJPb.png"
 
         # Encode gambar ke base64
         intress_b64 = img_to_base64(intress_path)
