@@ -79,7 +79,7 @@ st.markdown("<h3 class='sub-header'>Lingkup KPPN Lhokseumawe</h3>", unsafe_allow
 
 # Periode/tanggal
 current_year = datetime.now().year
-st.markdown(f"<p class='period'>Periode: Januari - Desember {current_year}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='period'>Periode: Januari - Juni {current_year}</p>", unsafe_allow_html=True)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
@@ -90,14 +90,8 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.expander("📊 Analisis Belanja Negara", expanded=False):
-    st.write("""
-    **Tren Realisasi Belanja Negara:**
-    - Perbandingan realisasi vs pagu anggaran
-    - Komposisi belanja pusat vs transfer daerah
-    - Pertumbuhan belanja bulanan
-    - Persentase penyerapan anggaran
-    """)
+with st.expander("**SUMBER:**", expanded=False):
+    st.write("""SINTESA 30 Juni 2025""")
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
@@ -110,8 +104,5 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
-- Data realisasi per tanggal 30 Juni 2025
-- Termasuk Belanja Pusat dan Transfer ke Daerah
-- Realisasi berdasarkan SP2D yang diterbitkan
-- Target berdasarkan APBN-P 2025
+- Data yang disajikan adalah per tanggal 30 Juni 2025
 """)
