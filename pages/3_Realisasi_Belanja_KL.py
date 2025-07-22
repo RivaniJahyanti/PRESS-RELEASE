@@ -89,7 +89,7 @@ st.markdown("<h3 class='sub-header'>Lingkup KPPN Lhokseumawe</h3>", unsafe_allow
 
 # Periode/tanggal
 current_year = datetime.now().year
-st.markdown(f"<p class='period'>Periode: Januari - Desember {current_year}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='period'>Periode: Januari - Juni {current_year}</p>", unsafe_allow_html=True)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
@@ -100,14 +100,8 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.expander("📊 Analisis Realisasi Belanja", expanded=False):
-    st.write("""
-    **Tren Realisasi Belanja K/L:**
-    - Perbandingan realisasi vs pagu anggaran
-    - Pertumbuhan belanja bulanan
-    - Kementerian/Lembaga dengan realisasi tertinggi
-    - Persentase penyerapan anggaran
-    """)
+with st.expander("**SUMBER**", expanded=False):
+    st.write("""SINTESA 30 JUNI 2025""")
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
@@ -120,7 +114,5 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
-- Data realisasi berdasarkan laporan Satker per tanggal 30 Juni 2025
-- Pagu berdasarkan DIPA 2025
-- Realisasi dihitung berdasarkan pembayaran yang telah diterbitkan SP2D
+- Data yang disajikan adalah per tanggal 30 Juni 2025
 """)
