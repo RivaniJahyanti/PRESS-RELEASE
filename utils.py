@@ -75,7 +75,7 @@ def img_to_base64(img_path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-def tampilkan_header(lebar_logo_kiri=255, lebar_intress=130, lebar_djpb=60, margin_atas='4rem', margin_bawah='4rem'):
+def tampilkan_header(lebar_logo_kiri=255, lebar_logo_kanan=130, margin_atas='4rem', margin_bawah='4rem'):
     """
     Menampilkan header yang disesuaikan dengan logo yang sejajar dan presisi.
     - Logo kanan rata penuh ke kanan tanpa margin.
@@ -109,22 +109,7 @@ def tampilkan_header(lebar_logo_kiri=255, lebar_intress=130, lebar_djpb=60, marg
         st.image("logo/KEMENKEU.png", width=lebar_logo_kiri)
 
     with col_logo_kanan:
-        # Path logo
-        intress_path = "logo/INTRESS.png"
-        djpb_path = "logo/DJPb.png"
-
-        # Encode gambar ke base64
-        intress_b64 = img_to_base64(intress_path)
-        djpb_b64 = img_to_base64(djpb_path)
-
-        # Hanya tampilkan jika gambar berhasil di-load
-        if intress_b64 and djpb_b64:
-            st.markdown(f"""
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
-                <img src="data:image/png;base64,{intress_b64}" width="{lebar_intress}">
-                <img src="data:image/png;base64,{djpb_b64}" width="{lebar_djpb}">
-            </div>
-            """, unsafe_allow_html=True)
+        st.image("logo/DJPb DAN INTRESS.png", width=lebar_logo_kanan)
 
 # --- FUNGSI-FUNGSI VISUALISASI LENGKAP ---
 
