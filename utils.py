@@ -94,7 +94,7 @@ def tampilkan_header(lebar_logo_kiri=255, lebar_intress=200, margin_atas='4rem',
             }}
             /* CSS untuk menyejajarkan item di dalam kolom secara vertikal */
             [data-testid="stHorizontalBlock"] {{
-                align-items: flex-end;
+                align-items: center;
             }}
         </style>
         """,
