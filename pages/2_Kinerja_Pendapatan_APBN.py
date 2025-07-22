@@ -89,13 +89,7 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-#with st.expander("📊 Analisis Kinerja Pendapatan", expanded=False):
-    #st.write("""
-    #**Tren Pendapatan APBN:**
-    #- Pertumbuhan pendapatan bulanan
-    #- Sumber pendapatan utama
-    #- Persentase pencapaian target
-    """)
+with st.write("**Sumber:** MPN G3 30 Juni 2025", expanded=False):
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
