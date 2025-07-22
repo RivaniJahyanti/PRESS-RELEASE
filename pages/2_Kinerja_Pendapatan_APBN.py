@@ -78,7 +78,7 @@ st.markdown("<h3 class='sub-header'>Lingkup KPPN Lhokseumawe</h3>", unsafe_allow
 
 # Periode/tanggal
 current_year = datetime.now().year
-st.markdown(f"<p class='period'>Periode: Januari - Desember {current_year}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='period'>Periode: Januari - Juni {current_year}</p>", unsafe_allow_html=True)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
@@ -89,12 +89,12 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.expander("📊 Analisis Kinerja Pendapatan", expanded=False):
-    st.write("""
-    **Tren Pendapatan APBN:**
-    - Pertumbuhan pendapatan bulanan
-    - Sumber pendapatan utama
-    - Persentase pencapaian target
+#with st.expander("📊 Analisis Kinerja Pendapatan", expanded=False):
+    #st.write("""
+    #**Tren Pendapatan APBN:**
+    #- Pertumbuhan pendapatan bulanan
+    #- Sumber pendapatan utama
+    #- Persentase pencapaian target
     """)
 
 # Tombol kembali ke home
@@ -108,7 +108,5 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
-- Data diperbarui per tanggal 30 Juni 2025
-- Kinerja dihitung berdasarkan realisasi kas
-- Target berdasarkan APBN-P 2025
+- Data ditarik per 30 Juni 2025
 """)
