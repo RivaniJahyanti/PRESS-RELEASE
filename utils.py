@@ -79,7 +79,7 @@ def tampilkan_header(lebar_logo_kiri=255, lebar_logo_kanan=130, margin_atas='4re
     """
     Menampilkan header yang disesuaikan dengan logo yang sejajar dan presisi.
     - Logo kanan rata penuh ke kanan tanpa margin.
-    - Lebar logo kanan bisa diatur satu per satu.
+
     """
     # CSS untuk perataan vertikal dan kontrol padding
     st.markdown(
@@ -109,8 +109,19 @@ def tampilkan_header(lebar_logo_kiri=255, lebar_logo_kanan=130, margin_atas='4re
         st.image("logo/KEMENKEU.png", width=lebar_logo_kiri)
 
     with col_logo_kanan:
-        st.image("logo/DJPb DAN INTRESS.png", width=lebar_logo_kanan)
+        # Path logo
+        intress_path = "logo/DJPb DANINTRESS.png"
 
+        # Encode gambar ke base64
+        intress_b64 = img_to_base64(intress_path)
+        
+        # Hanya tampilkan jika gambar berhasil di-load
+        if intress_b64:
+            st.markdown(f"""
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
+                <img src="data:image/png;base64,{intress_b64}" width="{lebar_intress}">
+            </div>
+            """, unsafe_allow_html=True)
 # --- FUNGSI-FUNGSI VISUALISASI LENGKAP ---
 
 def display_pendapatan_infographic():
