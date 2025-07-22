@@ -391,7 +391,7 @@ def display_belanja_negara_chart():
             ),
             yaxis=dict(
                 title=yaxis_title,
-                titlefont=dict(color='black', size=12),
+                title_font=dict(color='black', size=12),
                 tickfont=dict(color='black', size=12),
                 linecolor='black'
             ),
