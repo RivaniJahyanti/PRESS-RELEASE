@@ -120,7 +120,7 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
 # Catatan kaki
 st.caption("""
-**Keterangan:**
+**Catatan:**
 - Full Digital: Pembayaran melalui KKP/CMS/DigiPay (100% elektronik)
 - Proses Manual: Transaksi yang masih melibatkan verifikasi fisik/dokumen kertas
 - Data yang disajikan adalah per tanggal 30 Juni 2025
