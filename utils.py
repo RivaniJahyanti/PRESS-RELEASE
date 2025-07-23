@@ -75,7 +75,7 @@ def img_to_base64(img_path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-def tampilkan_header(lebar_logo_kiri=255, lebar_intress=130, lebar_djpb=60, margin_atas='4rem', margin_bawah='4rem'):
+def tampilkan_header(lebar_logo_kiri=275, lebar_intress=150, lebar_djpb=60, margin_atas='4rem', margin_bawah='4rem'):
     """
     Menampilkan header yang disesuaikan dengan logo yang sejajar dan presisi.
     - Logo kanan rata penuh ke kanan tanpa margin.
@@ -106,12 +106,12 @@ def tampilkan_header(lebar_logo_kiri=255, lebar_intress=130, lebar_djpb=60, marg
 
     with col_logo_kiri:
         # Logo Kementerian Keuangan di sisi kiri
-        st.image("/content/logo/KEMENKEU.png", width=lebar_logo_kiri)
+        st.image("logo/KEMENKEU.png", width=lebar_logo_kiri)
 
     with col_logo_kanan:
         # Path logo
-        intress_path = "/content/logo/INTRESS.png"
-        djpb_path = "/content/logo/DJPb.png"
+        intress_path = "logo/INTRESS.png"
+        djpb_path = "logo/DJPb.png"
 
         # Encode gambar ke base64
         intress_b64 = img_to_base64(intress_path)
