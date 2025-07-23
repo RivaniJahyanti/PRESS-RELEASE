@@ -1,6 +1,6 @@
 
 import streamlit as st
-from utils import tampilkan_header, display_tkd_chart, get_data
+from utils import tampilkan_header, display_tkd_chart, get_data, display_transfer_daerah_wilayah_chart
 from datetime import datetime
 
 # Konfigurasi Halaman
