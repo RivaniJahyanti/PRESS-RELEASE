@@ -1,3 +1,4 @@
+%%writefile pages/8_Press_Release.py
 import streamlit as st
 from utils import tampilkan_header, generate_press_release
 from datetime import datetime
@@ -138,7 +139,7 @@ with col3:
 st.divider()
 
 # --- Tampilan Utama Siaran Pers ---
-st.markdown("### Pratinjau Siaran Pers")
+st.markdown("")
 with st.container():
     st.markdown("""
     <div class="press-container">
@@ -147,7 +148,7 @@ with st.container():
                 <h2 style="border-bottom: none;">SIARAN PERS KINERJA APBN</h2>
                 <p style="font-weight: bold;">KEMENTERIAN KEUANGAN RI</p>
                 <p>Kantor Pelayanan Perbendaharaan Negara Lhokseumawe</p>
-                <p style="color: #6c757d;">{tanggal}</p>
+                <p style="color: #6c757d;">30 Juni 2025</p>
             </div>
             {content}
         </div>
