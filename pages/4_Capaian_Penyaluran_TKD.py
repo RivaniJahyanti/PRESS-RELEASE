@@ -91,7 +91,7 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.expander("**SUMBER**", expanded=False):
+with st.expander("**SUMBER:**", expanded=False):
     st.write("""SINTESA 30 Juni 2025""")
 
 # Tombol kembali ke home
