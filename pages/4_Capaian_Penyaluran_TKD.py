@@ -88,6 +88,7 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 with st.container():
     #st.markdown('<div class="viz-container">', unsafe_allow_html=True)
     display_tkd_chart()
+    display_transfer_daerah_wilayah_chart()
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
