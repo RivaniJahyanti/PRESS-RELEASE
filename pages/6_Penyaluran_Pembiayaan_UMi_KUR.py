@@ -102,7 +102,7 @@ st.markdown("<h3 class='sub-header'>Lingkup KPPN Lhokseumawe</h3>", unsafe_allow
 
 # Periode/tanggal
 current_year = datetime.now().year
-st.markdown(f"<p class='period'>Periode: Januari - Desember {current_year}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='period'>Periode: Januari - Juni {current_year}</p>", unsafe_allow_html=True)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
@@ -113,14 +113,8 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.expander("📊 Analisis Penyaluran Pembiayaan", expanded=False):
-    st.write("""
-    **Tren Penyaluran Pembiayaan:**
-    - Perbandingan realisasi UMi vs KUR
-    - Pertumbuhan penyaluran bulanan
-    - Pencapaian target tahunan
-    - Sektor usaha penerima manfaat
-    """)
+with st.expander("**SUMBER:**", expanded=False):
+    st.write("""SIKP UMi & KUR 3O Juni 2025""")
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
@@ -135,6 +129,5 @@ st.caption("""
 **Keterangan:**
 - UMi: Ultra Mikro
 - KUR: Kredit Usaha Rakyat
-- Data per 30 Juni 2025
-- Realisasi berdasarkan pencairan dana
+- Data yang disajikan adalah per tanggal 30 Juni 2025
 """)
