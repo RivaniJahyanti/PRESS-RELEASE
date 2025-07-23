@@ -1,4 +1,3 @@
-%%writefile pages/8_Press_Release.py
 import streamlit as st
 from utils import tampilkan_header, generate_press_release
 from datetime import datetime
