@@ -96,7 +96,7 @@ st.markdown("<h3 class='sub-header'>Lingkup KPPN Lhokseumawe</h3>", unsafe_allow
 
 # Periode/tanggal
 current_year = datetime.now().year
-st.markdown(f"<p class='period'>Periode: Januari - Desember {current_year}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='period'>Periode: Januari - Juni {current_year}</p>", unsafe_allow_html=True)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
@@ -107,12 +107,8 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.expander("📊 Analisis Digitalisasi Pembayaran", expanded=False):
-    st.write("""
-    **Tren Digitalisasi Pembayaran:**
-    - Pertumbuhan transaksi digital per bulan
-    - Pencapaian target digitalisasi
-    """)
+with st.expander("**SUMBER:**", expanded=False):
+    st.write("""Live Dashboard BSI""")
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
@@ -127,5 +123,5 @@ st.caption("""
 **Keterangan:**
 - Full Digital: Pembayaran melalui KKP/CMS/DigiPay (100% elektronik)
 - Proses Manual: Transaksi yang masih melibatkan verifikasi fisik/dokumen kertas
-- Data mencakup seluruh kanal pembayaran KPPN
+- Data yang disajikan adalah per tanggal 30 Juni 2025
 """)
