@@ -113,8 +113,8 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.expander("**SUMBER:**", expanded=False):
-    st.write("""SIKP UMi & KUR 3O Juni 2025""")
+#with st.expander("**SUMBER:**", expanded=False):
+    #st.write("""SIKP UMi & KUR 3O Juni 2025""")
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
@@ -127,7 +127,8 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
+- **Sumber:** SIKP UMi & KUR 3O Juni 2025
+- Data yang disajikan adalah per tanggal 30 Juni 2025
 - UMi: Ultra Mikro
 - KUR: Kredit Usaha Rakyat
-- Data yang disajikan adalah per tanggal 30 Juni 2025
 """)
