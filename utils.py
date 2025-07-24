@@ -75,7 +75,7 @@ def img_to_base64(img_path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-def tampilkan_header(lebar_logo_kiri=275, lebar_intress=150, lebar_djpb=60, margin_atas='4rem', margin_bawah='4rem'):
+def tampilkan_header(lebar_logo_kiri=290, lebar_intress=155, lebar_djpb=60, margin_atas='4rem', margin_bawah='4rem'):
     """
     Menampilkan header yang disesuaikan dengan logo yang sejajar dan presisi.
     - Logo kanan rata penuh ke kanan tanpa margin.
@@ -511,7 +511,7 @@ def display_belanja_negara_chart():
         st.plotly_chart(fig, use_container_width=True)
 
         total_data = df[df['Kategori'] == 'Belanja Negara'].iloc[0]
-        summary_text = (f"Belanja yang dikelola ➔ Realisasi <b>{format_otomatis(total_data['realisasi_num'])}</b> dari Pagu <b>{format_otomatis(total_data['pagu_num'])}</b> ({total_data['persentase']:.2f}%)")
+        summary_text = (f"Belanja Negara yang dikelola ➔ Realisasi <b>{format_otomatis(total_data['realisasi_num'])}</b> dari Pagu <b>{format_otomatis(total_data['pagu_num'])}</b> ({total_data['persentase']:.2f}%)")
         st.markdown(f'<div style="background-color: #E8F5E9; border-radius: 10px; padding: 15px; text-align: center; margin-top: -20px; position: relative; z-index: 1; border: 1px solid #A5D6A7;"><p style="font-size: 1.1em; color: #1B5E20;">{summary_text}</p></div>', unsafe_allow_html=True)
 
     except Exception as e:
