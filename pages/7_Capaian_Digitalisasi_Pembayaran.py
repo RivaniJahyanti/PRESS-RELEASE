@@ -107,8 +107,8 @@ with st.container():
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Analisis tambahan
-with st.expander("**SUMBER:**", expanded=False):
-    st.write("""Live Dashboard BSI""")
+#with st.expander("**SUMBER:**", expanded=False):
+    #st.write("""Live Dashboard BSI""")
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
@@ -121,7 +121,8 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
+- **Sumber:** Live Dashboard BSI
+- Data yang disajikan adalah per tanggal 30 Juni 2025
 - Full Digital: Pembayaran melalui KKP/CMS/DigiPay (100% elektronik)
 - Proses Manual: Transaksi yang masih melibatkan verifikasi fisik/dokumen kertas
-- Data yang disajikan adalah per tanggal 30 Juni 2025
 """)
