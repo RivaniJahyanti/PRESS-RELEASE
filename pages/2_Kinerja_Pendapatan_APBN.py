@@ -17,7 +17,7 @@ st.markdown("""
     .main-title {
         text-align: center;
         color: #2b5876;
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
         background: linear-gradient(to right, #2b5876, #4e4376);
@@ -29,7 +29,7 @@ st.markdown("""
     .sub-header {
         text-align: center;
         color: #4a6fa5;
-        font-size: 1.2rem;
+        font-size: 1.8rem;
         margin-top: 0 !important;
         margin-bottom: 0.5rem;
         font-weight: 500;
@@ -39,7 +39,7 @@ st.markdown("""
     .period {
         text-align: center;
         color: #6b7280;
-        font-size: 1rem;
+        font-size: 2rem;
         margin-bottom: 1.5rem;
     }
 
