@@ -75,7 +75,7 @@ def img_to_base64(img_path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-def tampilkan_header(lebar_logo_kiri=350, lebar_intress=155, lebar_djpb=60, margin_atas='4rem', margin_bawah='4rem'):
+def tampilkan_header(lebar_logo_kiri=450, lebar_intress=155, lebar_djpb=60, margin_atas='4rem', margin_bawah='5rem'):
     """
     Menampilkan header yang disesuaikan dengan logo yang sejajar dan presisi.
     - Logo kanan rata penuh ke kanan tanpa margin.
