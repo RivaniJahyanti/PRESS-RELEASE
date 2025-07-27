@@ -566,7 +566,7 @@ def display_umi_kur_chart():
         /* Visualisasi UMi */
         /* <-- PERUBAHAN: Ukuran font diperbesar --> */
         .umi-item { display: flex; align-items: center; margin-bottom: 15px; font-size: 1.2em; }
-        .umi-label { width: 120px; text-align: right; padding-right: 10px; font-weight: 600; color: #333; }
+        .umi-label { width: 120px; text-align: right; padding-right: 15px; font-weight: 600; color: #333; }
         .umi-bar-container { flex-grow: 1; }
         .umi-bar {
             height: 35px; /* Sedikit lebih tinggi */
@@ -580,7 +580,7 @@ def display_umi_kur_chart():
         .umi-bar-2 { background: linear-gradient(45deg, #28a745, #34ce57); }
         .umi-debitur-details {
             width: 150px; /* Sedikit lebih lebar */
-            text-align: left; padding-left: 8px;
+            text-align: left; padding-left: 5px;
             font-weight: 600; color: #333; white-space: nowrap;
         }
 
