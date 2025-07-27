@@ -75,43 +75,51 @@ def img_to_base64(img_path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-def tampilkan_header(lebar_logo_kiri=550, lebar_intress=135, lebar_djpb=40, margin_atas='3rem', margin_bawah='5rem'):
+def tampilkan_header(lebar_logo_kiri=550, lebar_intress=155, lebar_djpb=60, margin_atas='4rem', margin_bawah='5rem'):
     """
-    Menampilkan header yang disesuaikan dengan logo yang sejajar di bagian bawah.
-    - Logo kiri dan kanan semua rapat ke bawah
-    - Lebar logo bisa diatur satu per satu
+    Menampilkan header dengan semua logo sejajar sempurna di garis bawah yang sama
     """
     # CSS untuk perataan vertikal dan kontrol padding
     st.markdown(
         f"""
         <style>
-            /* Mengatur padding atas dan bawah dari blok utama Streamlit */
+            /* Mengatur padding utama */
             div.block-container {{
                 padding-top: {margin_atas};
                 padding-bottom: {margin_bawah};
                 padding-left: 2rem;
                 padding-right: 2rem;
             }}
-            /* CSS untuk menyejajarkan semua item di bagian bawah */
+            
+            /* Memaksa semua item sejajar di bagian bawah */
             [data-testid="stHorizontalBlock"] {{
                 align-items: flex-end !important;
             }}
-            /* Memastikan kolom-kolom juga align bottom */
-            .stHorizontalBlock > div {{
+            
+            /* Container gambar di setiap kolom */
+            .stImage {{
                 display: flex;
-                flex-direction: column;
-                justify-content: flex-end !important;
+                align-items: flex-end !important;
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important;
+            }}
+            
+            /* Untuk logo kanan */
+            .logo-container {{
+                display: flex;
+                align-items: flex-end !important;
+                height: 100%;
             }}
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    # Mengatur kolom utama untuk tata letak header
+    # Mengatur kolom utama
     col_logo_kiri, col_kosong, col_logo_kanan = st.columns([2, 5, 2.5])
 
     with col_logo_kiri:
-        # Logo Kementerian Keuangan di sisi kiri
+        # Logo Kemenkeu dengan penyesuaian
         st.image("logo/KEMENKEU.png", width=lebar_logo_kiri)
 
     with col_logo_kanan:
@@ -123,15 +131,13 @@ def tampilkan_header(lebar_logo_kiri=550, lebar_intress=135, lebar_djpb=40, marg
         intress_b64 = img_to_base64(intress_path)
         djpb_b64 = img_to_base64(djpb_path)
 
-        # Hanya tampilkan jika gambar berhasil di-load
         if intress_b64 and djpb_b64:
             st.markdown(f"""
-            <div style="display: flex; justify-content: flex-end; align-items: flex-end; gap: 8px;">
-                <img src="data:image/png;base64,{intress_b64}" width="{lebar_intress}">
-                <img src="data:image/png;base64,{djpb_b64}" width="{lebar_djpb}">
+            <div class="logo-container">
+                <img src="data:image/png;base64,{intress_b64}" width="{lebar_intress}" style="margin-bottom:0; padding-bottom:0;">
+                <img src="data:image/png;base64,{djpb_b64}" width="{lebar_djpb}" style="margin-bottom:0; padding-bottom:0;">
             </div>
             """, unsafe_allow_html=True)
-
 # --- FUNGSI-FUNGSI VISUALISASI LENGKAP ---
 
 def display_pendapatan_infographic():
