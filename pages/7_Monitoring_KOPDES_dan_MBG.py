@@ -9,6 +9,8 @@ st.set_page_config(
     page_icon="📊"
 )
 
+tampilkan_header()
+
 # Custom CSS untuk perbaikan tampilan
 st.markdown("""
 <style>
