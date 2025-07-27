@@ -29,7 +29,7 @@ st.markdown("""
     .sub-header {
         text-align: center;
         color: #4a6fa5;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         margin-top: 0 !important;
         margin-bottom: 0.5rem;
         font-weight: 500;
@@ -39,7 +39,7 @@ st.markdown("""
     .period {
         text-align: center;
         color: #6b7280;
-        font-size: 1rem;
+        font-size: 1.2rem;
         margin-bottom: 1.5rem;
     }
 
@@ -64,7 +64,7 @@ st.markdown("""
         display: inline-block;
         padding: 0.35rem 0.65rem;
         border-radius: 50rem;
-        font-size: 0.75rem;
+        font-size: 1.5rem;
         font-weight: 700;
     }
     .kur-badge {
