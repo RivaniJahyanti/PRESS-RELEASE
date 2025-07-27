@@ -648,7 +648,7 @@ def display_umi_kur_chart():
     except Exception as e:
         st.error(f"Gagal memproses data untuk visualisasi UMi & KUR: {e}")
 
-# --- FUNGSI UTAMA ---
+
 def display_digitalisasi_chart():
     SHEET_NAME = "CAPAIAN DIGITALISASI PEMBAYARAN"
     df = get_data(SHEET_NAME)
@@ -656,22 +656,111 @@ def display_digitalisasi_chart():
 
     st.markdown("""
     <style>
-        .digi-card { background-color: #ffffff; border-radius: 12px; padding: 20px; border-left: 6px solid; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e9ecef; height: 100%; margin-bottom: 20px; }
-        .digi-header { display: flex; align-items: center; margin-bottom: 18px; }
-        .digi-icon { font-size: 2rem; margin-right: 15px; width: 45px; text-align: center; }
-        .digi-title { font-size: 1.6rem; font-weight: 700; }
-        .digi-metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        /* MODIFIKASI: background-color dihapus dari sini, akan ditambahkan inline */
-        .digi-metric-item { padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #e9ecef; }
-        /* MODIFIKASI: font-size dibesarkan */
-        .digi-metric-label { font-size: 1rem; color: #495057; margin-bottom: 10px; font-weight: 500; }
-        .digi-value-container { display: flex; justify-content: center; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-        /* MODIFIKASI: font-size dibesarkan */
-        .digi-metric-value { font-size: 1.8rem; font-weight: 700; color: #212529; line-height: 1.2; }
-        .digi-yoy { font-size: 0.9rem; font-weight: 600; }
-        .digi-yoy-pos { color: #198754; }
-        .digi-yoy-neg { color: #dc3545; }
-        .digi-yoy-zero { color: #6c757d; }
+        /* TEMA KEMENKEU/DJPB */
+        :root {
+            --djpb-blue: #0056b3;
+            --djpb-blue-light: #e6f0fa;
+            --djpb-red: #e63946;
+            --djpb-red-light: #fae6e8;
+            --djpb-gold: #d4af37;
+            --djpb-gold-light: #faf6e6;
+            --djpb-green: #198754;
+            --djpb-green-light: #e6f5ec;
+            --djpb-dark: #212529;
+            --djpb-light: #f8f9fa;
+        }
+        
+        .digi-card { 
+            background-color: white; 
+            border-radius: 12px; 
+            padding: 20px; 
+            border-left: 6px solid; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+            border: 1px solid #e9ecef; 
+            height: 100%; 
+            margin-bottom: 20px; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .digi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+        .digi-header { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 18px; 
+        }
+        .digi-icon { 
+            font-size: 2.2rem; 
+            margin-right: 15px; 
+            width: 50px; 
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--djpb-light);
+            border-radius: 50%;
+            padding: 10px;
+        }
+        .digi-title { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            color: var(--djpb-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .digi-metrics-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+        }
+        .digi-metric-item { 
+            padding: 18px; 
+            border-radius: 10px; 
+            text-align: center; 
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        .digi-metric-item:hover {
+            transform: scale(1.02);
+        }
+        .digi-metric-label { 
+            font-size: 1rem; 
+            color: #495057; 
+            margin-bottom: 10px; 
+            font-weight: 600;
+        }
+        .digi-value-container { 
+            display: flex; 
+            justify-content: center; 
+            align-items: baseline; 
+            gap: 8px; 
+            flex-wrap: wrap; 
+        }
+        .digi-metric-value { 
+            font-size: 1.8rem; 
+            font-weight: 800; 
+            color: var(--djpb-dark); 
+            line-height: 1.2; 
+        }
+        .digi-yoy { 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        .digi-yoy-pos { 
+            background-color: var(--djpb-green-light);
+            color: var(--djpb-green);
+        }
+        .digi-yoy-neg { 
+            background-color: var(--djpb-red-light);
+            color: var(--djpb-red);
+        }
+        .digi-yoy-zero { 
+            background-color: var(--djpb-light);
+            color: #6c757d;
+        }
     </style>
     """, unsafe_allow_html=True)
 
@@ -680,30 +769,52 @@ def display_digitalisasi_chart():
             return ""
         yoy_val = parse_value(yoy_value)
         if yoy_val > 0:
-            return f'<div class="digi-yoy digi-yoy-pos">▲ {abs(yoy_val):.2f}%</div>'
+            return f'<div class="digi-yoy digi-yoy-pos">▲ +{abs(yoy_val):.1f}%</div>'
         elif yoy_val < 0:
-            return f'<div class="digi-yoy digi-yoy-neg">▼ {abs(yoy_val):.2f}%</div>'
+            return f'<div class="digi-yoy digi-yoy-neg">▼ {abs(yoy_val):.1f}%</div>'
         else:
-            return f'<div class="digi-yoy digi-yoy-zero">▬ {abs(yoy_val):.2f}%</div>'
+            return f'<div class="digi-yoy digi-yoy-zero">▬ 0.0%</div>'
 
     try:
         df['nilai_transaksi_num'] = df['Nilai Transaksi (Rp)'].apply(parse_value)
         df['jumlah_transaksi_num'] = df['Jumlah Transaksi'].apply(parse_value)
 
         platforms = {
-            'digipay': {'name': 'DigiPay', 'color': '#ffc107', 'icon': '💳'},
-            'KKP': {'name': 'Kartu Kredit Pemerintah', 'color': '#0d6efd', 'icon': '💲'},
-            'CMS': {'name': 'Cash Management System', 'color': '#198754', 'icon': '🖥️'}
+            'digipay': {
+                'name': 'DIGIPAY', 
+                'color': 'var(--djpb-blue)', 
+                'icon': '📱',
+                'box_colors': [
+                    'var(--djpb-blue-light)',    # SATKER - Biru
+                    'var(--djpb-red-light)',    # VENDOR - Merah
+                    'var(--djpb-gold-light)',   # TRANSAKSI - Emas
+                    'var(--djpb-green-light)'   # NILAI TRANSAKSI - Hijau
+                ]
+            },
+            'KKP': {
+                'name': 'KARTU KREDIT PEMERINTAH', 
+                'color': 'var(--djpb-gold)', 
+                'icon': '💳',
+                'box_colors': [
+                    'var(--djpb-gold-light)',  # SATKER PENGGUNA - Emas
+                    'var(--djpb-green-light)',    # NILAI TRANSAKSI - Merah
+                    'var(--djpb-blue-light)',   # (Jika ada metrik tambahan) - Biru
+                    'var(--djpb-green-light)'   # (Jika ada metrik tambahan) - Hijau
+                ]
+            },
+            'CMS': {
+                'name': 'CASH MANAGEMENT SYSTEM', 
+                'color': 'var(--djpb-green)', 
+                'icon': '🖥️',
+                'box_colors': [
+                    'var(--djpb-red-light)',  # SATKER PENGGUNA - Hijau
+                    'var(--djpb-blue-light)',   # NILAI TRANSAKSI - Biru
+                    'var(--djpb-red-light)',    # (Jika ada metrik tambahan) - Merah
+                    'var(--djpb-gold-light)'    # (Jika ada metrik tambahan) - Emas
+                ]
+            }
         }
 
-        # MODIFIKASI: Definisikan palet warna terang untuk background kotak metrik
-        metric_palette = {
-            'yellow': '#fff9e6',
-            'blue': '#e7f5ff',
-            'green': '#e6f8f0',
-            'grey': '#f8f9fa'
-        }
-        
         for platform_key, data in platforms.items():
             platform_df = df[df['Platform'] == platform_key]
 
@@ -716,20 +827,22 @@ def display_digitalisasi_chart():
                 card_html += f'<div class="digi-header"><div class="digi-icon">{data["icon"]}</div><div class="digi-title">{data["name"]}</div></div>'
                 card_html += '<div class="digi-metrics-grid">'
 
-                # MODIFIKASI: Tambahkan style background-color secara inline
                 if platform_key == 'digipay' and len(metrik_values) >= 2:
                     card_html += f"""
-                        <div class="digi-metric-item" style="background-color: {metric_palette['blue']};">
-                            <div class="digi-metric-label">Satker</div><div class="digi-metric-value">{metrik_values[0]}</div>
+                        <div class="digi-metric-item" style="background-color: {data['box_colors'][0]};">
+                            <div class="digi-metric-label">SATKER</div>
+                            <div class="digi-metric-value">{metrik_values[0]}</div>
                         </div>
-                        <div class="digi-metric-item" style="background-color: {metric_palette['green']};">
-                            <div class="digi-metric-label">Vendor</div><div class="digi-metric-value">{metrik_values[1]}</div>
+                        <div class="digi-metric-item" style="background-color: {data['box_colors'][1]};">
+                            <div class="digi-metric-label">VENDOR</div>
+                            <div class="digi-metric-value">{metrik_values[1]}</div>
                         </div>
-                        <div class="digi-metric-item" style="background-color: {metric_palette['grey']};">
-                            <div class="digi-metric-label">Transaksi</div><div class="digi-metric-value">{int(row['jumlah_transaksi_num']):,}</div>
+                        <div class="digi-metric-item" style="background-color: {data['box_colors'][2]};">
+                            <div class="digi-metric-label">TRANSAKSI</div>
+                            <div class="digi-metric-value">{int(row['jumlah_transaksi_num']):,}</div>
                         </div>
-                        <div class="digi-metric-item" style="background-color: {metric_palette['yellow']};">
-                            <div class="digi-metric-label">Nilai Transaksi</div>
+                        <div class="digi-metric-item" style="background-color: {data['box_colors'][3]};">
+                            <div class="digi-metric-label">NILAI TRANSAKSI</div>
                             <div class="digi-value-container">
                                 <div class="digi-metric-value">{format_otomatis(row['nilai_transaksi_num'])}</div>
                                 {yoy_nilai_html}
@@ -738,11 +851,12 @@ def display_digitalisasi_chart():
                     """
                 elif len(metrik_values) >= 2: # Untuk KKP dan CMS
                     card_html += f"""
-                        <div class="digi-metric-item" style="background-color: {metric_palette['blue']};">
-                             <div class="digi-metric-label">Satker Pengguna</div><div class="digi-metric-value">{metrik_values[0]} dari {metrik_values[1]}</div>
+                        <div class="digi-metric-item" style="background-color: {data['box_colors'][0]};">
+                            <div class="digi-metric-label">SATKER PENGGUNA</div>
+                            <div class="digi-metric-value">{metrik_values[0]} DARI {metrik_values[1]}</div>
                         </div>
-                        <div class="digi-metric-item" style="background-color: {metric_palette['yellow']};">
-                            <div class="digi-metric-label">Nilai Transaksi</div>
+                        <div class="digi-metric-item" style="background-color: {data['box_colors'][1]};">
+                            <div class="digi-metric-label">NILAI TRANSAKSI</div>
                             <div class="digi-value-container">
                                 <div class="digi-metric-value">{format_otomatis(row['nilai_transaksi_num'])}</div>
                                 {yoy_nilai_html}
@@ -752,7 +866,7 @@ def display_digitalisasi_chart():
                 card_html += '</div></div>'
                 st.markdown(card_html, unsafe_allow_html=True)
     except Exception as e:
-        st.error(f"Gagal memproses data digitalisasi: {str(e)}")
+        st.error(f"GAGAL MEMPROSES DATA DIGITALISASI: {str(e).upper()}")
 
 def generate_press_release():
     """
@@ -775,23 +889,23 @@ def generate_press_release():
             penerimaan_dalam_negeri = pendapatan_df[pendapatan_df['kategori'] == 'Penerimaan Dalam Negeri'].iloc[0]
             perpajakan = pendapatan_df[pendapatan_df['kategori'] == 'Penerimaan Perpajakan'].iloc[0]
             pnbp = pendapatan_df[pendapatan_df['kategori'] == 'Penerimaan Negara Bukan Pajak'].iloc[0]
-            
+
             # --- Total Pendapatan ---
             press_sections.append(
                 f"**Total Pendapatan Negara** mencapai **{format_otomatis(penerimaan_dalam_negeri['anggaran_num'])}**, "
                 f"mengalami pertumbuhan sebesar **{penerimaan_dalam_negeri['yoy_num']:.2f}%** (year-on-year)."
             )
-            
+
             # --- Perpajakan Detail ---
             press_sections.append("\n### **Penerimaan Perpajakan**")
             press_sections.append(
                 f"- Kontribusi total: **{format_otomatis(perpajakan['anggaran_num'])}** "
                 f"({perpajakan['yoy_num']:.2f}% YoY)"
             )
-            
+
             pajak_dalam_negeri = pendapatan_df[pendapatan_df['kategori'] == 'Pajak Dalam Negeri'].iloc[0]
             pajak_perdagangan = pendapatan_df[pendapatan_df['kategori'] == 'Pajak Perdagangan Internasional'].iloc[0]
-            
+
             press_sections.append("  - Rincian:")
             press_sections.append(
                 f"    - **Pajak Dalam Negeri**: {format_otomatis(pajak_dalam_negeri['anggaran_num'])} "
@@ -801,17 +915,17 @@ def generate_press_release():
                 f"    - **Pajak Perdagangan Internasional**: {format_otomatis(pajak_perdagangan['anggaran_num'])} "
                 f"(Tumbuh {pajak_perdagangan['yoy_num']:.2f}% YoY)"
             )
-            
+
             # --- PNBP Detail ---
             press_sections.append("\n### **Penerimaan Negara Bukan Pajak (PNBP)**")
             press_sections.append(
                 f"- Kontribusi total: **{format_otomatis(pnbp['anggaran_num'])}** "
                 f"({pnbp['yoy_num']:.2f}% YoY)"
             )
-            
+
             pnbp_lainnya = pendapatan_df[pendapatan_df['kategori'] == 'PNBP Lainnya'].iloc[0]
             pendapatan_blu = pendapatan_df[pendapatan_df['kategori'] == 'Pendapatan BLU'].iloc[0]
-            
+
             press_sections.append("  - Rincian:")
             press_sections.append(
                 f"    - **PNBP Lainnya**: {format_otomatis(pnbp_lainnya['anggaran_num'])} "
@@ -821,20 +935,20 @@ def generate_press_release():
                 f"    - **Pendapatan BLU**: {format_otomatis(pendapatan_blu['anggaran_num'])} "
                 f"(Tumbuh {pendapatan_blu['yoy_num']:.2f}% YoY)"
             )
-            
+
             # --- Analysis Commentary ---
             press_sections.append("\n### **Analisis**")
             if penerimaan_dalam_negeri['yoy_num'] > 0:
                 press_sections.append("- Pertumbuhan pendapatan negara secara keseluruhan menunjukkan tren positif.")
             else:
                 press_sections.append("- Terjadi perlambatan dalam pertumbuhan pendapatan negara.")
-                
+
             if pnbp['yoy_num'] < 0:
                 press_sections.append("- Penerimaan PNBP mengalami kontraksi yang perlu menjadi perhatian.")
-    
+
         except Exception as e:
             press_sections.append(f"\n**Gagal memproses data pendapatan**: {str(e)}")
-        
+
 
     # --- 2. BAGIAN BELANJA KL---
     belanja_df = get_data('REALISASI BELANJA KL')
@@ -852,15 +966,15 @@ def generate_press_release():
             total_pagu = belanja_df['pagu_num'].sum()
             total_realisasi = belanja_df['realisasi_num'].sum()
             total_persen = (total_realisasi / total_pagu * 100) if total_pagu > 0 else 0
-            
+
             press_sections.append(
                 f"**Total Belanja K/L** telah mencapai realisasi **{format_otomatis(total_realisasi)}** "
                 f"({total_persen:.2f}% dari pagu {format_otomatis(total_pagu)})."
             )
-            
+
             # --- Detail per Jenis Belanja ---
             press_sections.append("\n### **Rincian Realisasi per Jenis Belanja**")
-            
+
             for _, row in belanja_df.iterrows():
                 trend_icon = "↑" if row['yoy_num'] >= 0 else "↓"
                 press_sections.append(
@@ -869,10 +983,10 @@ def generate_press_release():
                     f"  - YoY: {abs(row['yoy_num']):.2f}% {trend_icon} "
                     f"({'naik' if row['yoy_num'] >= 0 else 'turun'})"
                 )
-            
+
             # --- Analisis Kinerja ---
             press_sections.append("\n### **Analisis Kinerja**")
-            
+
             # Analisis capaian realisasi
             if total_persen > 75:
                 press_sections.append("- Secara keseluruhan, realisasi belanja menunjukkan penyerapan anggaran yang baik.")
@@ -880,30 +994,30 @@ def generate_press_release():
                 press_sections.append("- Realisasi belanja cukup namun masih perlu optimalisasi.")
             else:
                 press_sections.append("- Terdapat tantangan serius dalam penyerapan anggaran.")
-            
+
             # Highlight performa terbaik dan terburuk
             max_real = belanja_df.loc[belanja_df['persentase'].idxmax()]
             min_real = belanja_df.loc[belanja_df['persentase'].idxmin()]
-            
+
             press_sections.append(
                 f"\n- **Penyerapan Tertinggi**: {max_real['Jenis Belanja']} ({max_real['persentase']:.2f}%)\n"
                 f"- **Penyerapan Terendah**: {min_real['Jenis Belanja']} ({min_real['persentase']:.2f}%)"
             )
-            
+
             # Analisis tren pertumbuhan
             growing = belanja_df[belanja_df['yoy_num'] > 0]
             declining = belanja_df[belanja_df['yoy_num'] < 0]
-            
+
             if not growing.empty:
                 press_sections.append("\n**Jenis Belanja yang Tumbuh**:")
                 for _, row in growing.iterrows():
                     press_sections.append(f"- {row['Jenis Belanja']} (+{row['yoy_num']:.2f}%)")
-                    
+
             if not declining.empty:
                 press_sections.append("\n**Jenis Belanja yang Menurun**:")
                 for _, row in declining.iterrows():
                     press_sections.append(f"- {row['Jenis Belanja']} ({row['yoy_num']:.2f}%)")
-    
+
         except Exception as e:
             press_sections.append(f"\n**Gagal memproses data belanja**: {str(e)}")
 
@@ -924,31 +1038,31 @@ def generate_press_release():
             tkd_wilayah_df['pagu_num'] = tkd_wilayah_df['PAGU'].apply(parse_value)
             tkd_wilayah_df['realisasi_num'] = tkd_wilayah_df['REALISASI'].apply(parse_value)
             tkd_wilayah_df['persentase'] = (tkd_wilayah_df['realisasi_num'] / tkd_wilayah_df['pagu_num'].replace(0, np.nan) * 100).fillna(0)
-            
+
             # --- Total TKD ---
             total_pagu = tkd_df['pagu_num'].sum()
             total_realisasi = tkd_df['realisasi_num'].sum()
             total_persen = (total_realisasi / total_pagu * 100) if total_pagu > 0 else 0
-            
+
             press_sections.append(
                 f"**Total Transfer ke Daerah** yang telah disalurkan mencapai "
                 f"**{format_otomatis(total_realisasi)}** ({total_persen:.2f}% dari pagu "
                 f"{format_otomatis(total_pagu)})."
             )
-            
+
             # --- Analisis per Jenis Dana ---
             press_sections.append("\n### **Analisis Penyaluran per Jenis Dana**")
-            
+
             # Urutkan dari realisasi terbesar
             tkd_sorted = tkd_df.sort_values('realisasi_num', ascending=False)
-            
+
             for _, row in tkd_sorted.iterrows():
                 press_sections.append(
                     f"- **{row['Jenis Dana']}**: "
                     f"{format_otomatis(row['realisasi_num'])} "
                     f"({row['persentase']:.2f}% dari pagu)"
                 )
-            
+
             # Highlight 3 jenis dana dengan realisasi tertinggi
             top3 = tkd_sorted.head(3)
             press_sections.append("\n**Top 3 Dana dengan Realisasi Tertinggi**:")
@@ -958,13 +1072,13 @@ def generate_press_release():
                     f"{format_otomatis(row['realisasi_num'])} "
                     f"({row['persentase']:.2f}%)"
                 )
-            
+
             # --- Analisis per Wilayah (Diganti dari tabel menjadi narasi) ---
             press_sections.append("\n### **Distribusi per Wilayah**")
 
             # Urutkan berdasarkan persentase tertinggi
             tkd_wilayah_sorted = tkd_wilayah_df.sort_values('persentase', ascending=False)
-            
+
             press_sections.append("\nPenyaluran dana per wilayah adalah sebagai berikut:")
             for _, row in tkd_wilayah_sorted.iterrows():
                 press_sections.append(
@@ -975,7 +1089,7 @@ def generate_press_release():
             # Highlight wilayah terbaik dan terburuk
             best_wilayah = tkd_wilayah_sorted.iloc[0]
             worst_wilayah = tkd_wilayah_sorted.iloc[-1]
-            
+
             press_sections.append("\n**Kinerja Wilayah:**")
             press_sections.append(
                 f"- **Wilayah Terbaik**: **{best_wilayah['WILAYAH']}** dengan penyerapan "
@@ -985,10 +1099,10 @@ def generate_press_release():
                 f"- **Wilayah Terendah**: **{worst_wilayah['WILAYAH']}** dengan penyerapan "
                 f"**{worst_wilayah['persentase']:.2f}%**."
             )
-            
+
             # --- Analisis Kinerja ---
             press_sections.append("\n### **Analisis Kinerja**")
-            
+
             avg_penyerapan = tkd_df['persentase'].mean()
             if avg_penyerapan > 60:
                 press_sections.append("- Rata-rata penyaluran TKD menunjukkan kinerja yang baik.")
@@ -996,14 +1110,14 @@ def generate_press_release():
                 press_sections.append("- Penyaluran TKD masih perlu ditingkatkan.")
             else:
                 press_sections.append("- Terdapat kendala serius dalam penyaluran TKD.")
-            
+
             if (tkd_wilayah_df['persentase'] < 30).any():
                 press_sections.append("- Beberapa wilayah mengalami keterlambatan penyerapan yang signifikan.")
-    
+
         except Exception as e:
             press_sections.append(f"\n**Gagal memproses data TKD**: {str(e)}")
 
-    
+
     # --- 4. BAGIAN BELANJA NEGARA ---
     belanja_n_df = get_data('REALISASI BELANJA NEGARA')
     if not belanja_n_df.empty:
@@ -1012,7 +1126,7 @@ def generate_press_release():
             belanja_n_df['pagu_num'] = belanja_n_df['Pagu (Rp)'].apply(parse_value)
             belanja_n_df['realisasi_num'] = belanja_n_df['Realisasi (Rp)'].apply(parse_value)
             belanja_n_df['persentase'] = (belanja_n_df['realisasi_num'] / belanja_n_df['pagu_num'].replace(0, np.nan) * 100).fillna(0)
-            
+
             press_sections.append("## 4. REALISASI BELANJA NEGARA\n---\n")
 
             # --- Total Belanja Negara ---
@@ -1021,7 +1135,7 @@ def generate_press_release():
                 f"**Total Belanja Negara** telah mencapai realisasi **{format_otomatis(total['realisasi_num'])}** "
                 f"({total['persentase']:.2f}% dari pagu {format_otomatis(total['pagu_num'])})."
             )
-            
+
             # --- Belanja K/L ---
             kl = belanja_n_df[belanja_n_df['Kategori'] == 'Belanja K/L'].iloc[0]
             press_sections.append("\n### **Belanja Kementerian/Lembaga**")
@@ -1029,7 +1143,7 @@ def generate_press_release():
                 f"- Realisasi: **{format_otomatis(kl['realisasi_num'])}** "
                 f"({kl['persentase']:.2f}% dari pagu)"
             )
-            
+
             # --- Transfer ke Daerah ---
             tkd = belanja_n_df[belanja_n_df['Kategori'] == 'Transfer ke Daerah'].iloc[0]
             press_sections.append("\n### **Transfer ke Daerah**")
@@ -1037,41 +1151,41 @@ def generate_press_release():
                 f"- Realisasi: **{format_otomatis(tkd['realisasi_num'])}** "
                 f"({tkd['persentase']:.2f}% dari pagu)"
             )
-            
+
             # --- Analisis Komparatif ---
             press_sections.append("\n### **Analisis Komparatif**")
-            
+
             # Hitung kontribusi masing-masing komponen
             kontrib_kl = (kl['realisasi_num'] / total['realisasi_num']) * 100
             kontrib_tkd = (tkd['realisasi_num'] / total['realisasi_num']) * 100
-            
+
             press_sections.append(
                 f"- Kontribusi Belanja K/L: {kontrib_kl:.2f}% dari total realisasi\n"
                 f"- Kontribusi Transfer ke Daerah: {kontrib_tkd:.2f}% dari total realisasi"
             )
-            
+
             # --- Analisis Kinerja ---
             press_sections.append("\n### **Evaluasi Kinerja**")
-            
+
             if total['persentase'] > 75:
                 press_sections.append("- Secara keseluruhan, penyerapan anggaran menunjukkan kinerja yang baik.")
             elif total['persentase'] > 50:
                 press_sections.append("- Capaian realisasi cukup namun masih perlu optimalisasi.")
             else:
                 press_sections.append("- Terdapat tantangan serius dalam penyerapan anggaran.")
-                
+
             if kl['persentase'] < tkd['persentase']:
                 press_sections.append("- Penyerapan Transfer ke Daerah lebih baik dibanding Belanja K/L.")
             else:
                 press_sections.append("- Belanja K/L menunjukkan penyerapan yang lebih baik.")
-            
+
             # --- Rekomendasi ---
             press_sections.append("\n### **Rekomendasi**")
             if kl['persentase'] < 50:
                 press_sections.append("- Perlu percepatan realisasi belanja di Kementerian/Lembaga.")
             if tkd['persentase'] < 50:
                 press_sections.append("- Perlu evaluasi proses penyaluran Transfer ke Daerah.")
-    
+
         except Exception as e:
             press_sections.append(f"\n**Gagal memproses data belanja negara**: {str(e)}")
 
@@ -1083,30 +1197,30 @@ def generate_press_release():
             # --- Data Processing ---
             pembiayaan_df['pembiayaan_num'] = pembiayaan_df['Jumlah Pembiayaan (Rp)'].apply(parse_value)
             pembiayaan_df['debitur_num'] = pembiayaan_df['Jumlah Debitur'].apply(parse_value)
-                
+
             press_sections.append("## 5. PENYALURAN PEMBIAYAAN UMi & KUR\n---\n")
 
             # --- Total Pembiayaan ---
             total_umi = pembiayaan_df[pembiayaan_df['Jenis Pembiayaan'] == 'UMi']['pembiayaan_num'].sum()
             total_kur = pembiayaan_df[pembiayaan_df['Jenis Pembiayaan'] == 'KUR']['pembiayaan_num'].sum()
             total_all = total_umi + total_kur
-            
+
             total_debitur_umi = pembiayaan_df[pembiayaan_df['Jenis Pembiayaan'] == 'UMi']['debitur_num'].sum()
             total_debitur_kur = pembiayaan_df[pembiayaan_df['Jenis Pembiayaan'] == 'KUR']['debitur_num'].sum()
             total_debitur_all = total_debitur_umi + total_debitur_kur
-            
+
             press_sections.append(
                 f"**Total Pembiayaan UMKM** yang telah disalurkan mencapai **{format_otomatis(total_all)}** "
                 f"kepada **{int(total_debitur_all):,} debitur**."
             )
-            
+
             # --- UMi Detail ---
             press_sections.append("\n### **Pembiayaan Ultra Mikro (UMi)**")
             press_sections.append(
                 f"- Total penyaluran: **{format_otomatis(total_umi)}** ({total_umi/total_all*100:.1f}% dari total)\n"
                 f"- Jumlah debitur: **{int(total_debitur_umi):,}** ({total_debitur_umi/total_debitur_all*100:.1f}% dari total)"
             )
-            
+
             # Detail per wilayah UMi
             umi_wilayah = pembiayaan_df[pembiayaan_df['Jenis Pembiayaan'] == 'UMi']
             if not umi_wilayah.empty:
@@ -1118,14 +1232,14 @@ def generate_press_release():
                         f"(kepada {int(row['debitur_num']):,} debitur, "
                         f"rata-rata {format_otomatis(avg_per_debitur)}/debitur)"
                     )
-            
+
             # --- KUR Detail ---
             press_sections.append("\n### **Kredit Usaha Rakyat (KUR)**")
             press_sections.append(
                 f"- Total penyaluran: **{format_otomatis(total_kur)}** ({total_kur/total_all*100:.1f}% dari total)\n"
                 f"- Jumlah debitur: **{int(total_debitur_kur):,}** ({total_debitur_kur/total_debitur_all*100:.1f}% dari total)"
             )
-            
+
             # Detail per wilayah KUR
             kur_wilayah = pembiayaan_df[pembiayaan_df['Jenis Pembiayaan'] == 'KUR']
             if not kur_wilayah.empty:
@@ -1137,23 +1251,82 @@ def generate_press_release():
                         f"(kepada {int(row['debitur_num']):,} debitur, "
                         f"rata-rata {format_otomatis(avg_per_debitur)}/debitur)"
                     )
-            
+
             # --- Analisis Komparatif ---
             press_sections.append("\n### **Analisis Komparatif**")
-            
+
 
             # Wilayah dengan penyaluran tertinggi
             max_umi = umi_wilayah.loc[umi_wilayah['pembiayaan_num'].idxmax()] if not umi_wilayah.empty else None
             max_kur = kur_wilayah.loc[kur_wilayah['pembiayaan_num'].idxmax()] if not kur_wilayah.empty else None
-            
+
             if max_umi is not None:
                 press_sections.append(f"\n- **Wilayah penyaluran UMi terbesar**: {max_umi['Wilayah']} ({format_otomatis(max_umi['pembiayaan_num'])})")
             if max_kur is not None:
                 press_sections.append(f"- **Wilayah penyaluran KUR terbesar**: {max_kur['Wilayah']} ({format_otomatis(max_kur['pembiayaan_num'])})")
-    
+
         except Exception as e:
             press_sections.append(f"\n**Gagal memproses data pembiayaan**: {str(e)}")
-        
+
+
+    # --- 6. BAGIAN KOPDES & MBG ---
+    kopdes_df = get_data('KOPDES')
+    mbg_df = get_data('MBG')
+    
+    if not kopdes_df.empty and not mbg_df.empty:
+        try:
+            # Proses data KOPDES
+            kopdes_df['total_desa'] = kopdes_df['total_desa'].apply(parse_value)
+            kopdes_df['terbentuk'] = kopdes_df['terbentuk'].apply(parse_value)
+            kopdes_df['persentase'] = (kopdes_df['terbentuk'] / kopdes_df['total_desa'].replace(0, np.nan) * 100).fillna(0)
+            
+            # Proses data MBG
+            mbg_df['penerima'] = mbg_df['penerima'].apply(parse_value)
+            mbg_df['persentase'] = mbg_df['persentase'].apply(parse_value)
+            
+            # Hitung total
+            total_desa = int(kopdes_df['total_desa'].sum())
+            total_terbentuk = int(kopdes_df['terbentuk'].sum())
+            total_penerima_mbg = int(mbg_df['penerima'].sum())
+            overall_kopdes_percentage = (total_terbentuk / total_desa * 100) if total_desa > 0 else 0
+            
+            press_sections.append("## 0. CAPAIAN KOPDES & MBG\n---\n")
+            
+            # --- Ringkasan Utama ---
+            press_sections.append(
+                f"**Pembentukan KOPDES** telah mencapai **{total_terbentuk:,} desa** dari total **{total_desa:,} desa** "
+                f"di wilayah kerja (**{overall_kopdes_percentage:.0f}%**). Sementara itu, "
+                f"**Program MBG** telah menjangkau **{total_penerima_mbg:,} penerima** manfaat."
+            )
+            
+            # --- Detail KOPDES ---
+            press_sections.append("\n### **Detail Pembentukan KOPDES**")
+            for _, row in kopdes_df.sort_values(by='PEMDA').iterrows():
+                press_sections.append(
+                    f"- **{row['PEMDA']}**: {int(row['terbentuk']):,} desa "
+                    f"(**{row['persentase']:.0f}%** dari total {int(row['total_desa']):,} desa)"
+                )
+            
+            # --- Detail MBG ---
+            press_sections.append("\n### **Detail Penerima MBG**")
+            for _, row in mbg_df.sort_values(by='PEMDA').iterrows():
+                press_sections.append(
+                    f"- **{row['PEMDA']}**: {int(row['penerima']):,} penerima "
+                    f"(**{row['persentase']:.2f}%** dari target)"
+                )
+            
+            # --- Analisis Kinerja ---
+            press_sections.append("\n### **Analisis Kinerja**") 
+            
+            # Highlight wilayah dengan pencapaian terbaik
+            best_mbg = mbg_df.loc[mbg_df['persentase'].idxmax()]
+            press_sections.append(
+                f"\n- **Wilayah dengan penyerapan MBG tertinggi**: "
+                f"{best_mbg['PEMDA']} ({best_mbg['persentase']:.2f}%)"
+            )
+            
+        except Exception as e:
+            press_sections.append(f"\n**Gagal memproses data KOPDES & MBG**: {str(e)}")
 
     # --- 6. BAGIAN DIGITALISASI ---
     digital_df = get_data('CAPAIAN DIGITALISASI PEMBAYARAN')
@@ -1162,57 +1335,57 @@ def generate_press_release():
             # --- Data Processing ---
             digital_df['nilai_num'] = digital_df['Nilai Transaksi (Rp)'].apply(parse_value)
             digital_df['yoy_num'] = digital_df['Pertumbuhan YoY (%)'].apply(parse_value)
-                
+
             press_sections.append("## 6. CAPAIAN DIGITALISASI PEMBAYARAN\n---\n")
             # --- Total Digitalisasi ---
             total_transaksi = digital_df['Jumlah Transaksi'].sum() if 'Jumlah Transaksi' in digital_df.columns else None
             total_nilai = digital_df['nilai_num'].sum()
-            
+
             press_sections.append(
                 f"**Total Nilai Transaksi Digital** mencapai **{format_otomatis(total_nilai)}**"
             )
             if total_transaksi is not None:
                 press_sections[-1] += f" dari **{int(total_transaksi):,} transaksi**."
-            
+
             # --- Detail per Platform ---
             press_sections.append("\n### **Analisis per Platform Digital**")
-            
+
             for _, row in digital_df.iterrows():
                 platform_info = [
                     f"\n**{row['Platform'].upper()}**:",
                     f"- {row['Metrik Utama']}",
                 ]
-                
+
                 if pd.notna(row['Jumlah Transaksi']) and row['Jumlah Transaksi'] != '-':
                     platform_info.append(f"- Jumlah transaksi: {int(row['Jumlah Transaksi']):,}")
-                
+
                 platform_info.append(f"- Nilai transaksi: {format_otomatis(row['nilai_num'])}")
-                
+
                 trend = "↑" if row['yoy_num'] >= 0 else "↓"
                 platform_info.append(
                     f"- Pertumbuhan YoY: {abs(row['yoy_num']):.2f}% {trend} "
                     f"({'naik' if row['yoy_num'] >= 0 else 'turun'})"
                 )
-                
+
                 press_sections.append("\n".join(platform_info))
-            
+
             # --- Analisis Kinerja ---
             press_sections.append("\n### **Analisis Kinerja**")
-            
+
             # Platform dengan nilai transaksi tertinggi
             max_platform = digital_df.loc[digital_df['nilai_num'].idxmax()]
             press_sections.append(
                 f"- Platform dominan: **{max_platform['Platform']}** "
                 f"(kontribusi {max_platform['nilai_num']/total_nilai*100:.1f}% dari total)."
             )
-            
+
             # Platform dengan pertumbuhan terbaik
             growing = digital_df[digital_df['yoy_num'] > 0]
             if not growing.empty:
                 press_sections.append("\n**Platform dengan Pertumbuhan Positif**:")
                 for _, row in growing.iterrows():
                     press_sections.append(f"- {row['Platform']} (+{row['yoy_num']:.2f}%)")
-            
+
             # Platform dengan penurunan
             declining = digital_df[digital_df['yoy_num'] < 0]
             if not declining.empty:
@@ -1231,6 +1404,303 @@ def generate_press_release():
         # Note: Markdown does not support text color like yellow.
         # The title is formatted as a large header instead.
         header = ["<font color='grey'>---</font>"]
-        
+
         final_report = header + press_sections
         return "\n\n".join(final_report)
+
+def display_kopdes_mbg_chart():
+    """
+    PERUBAHAN TERBARU:
+    - Warna angka (bukan nama PEMDA) yang berbeda untuk tiap daerah
+    - Format jumlah KOPDES tanpa garis miring (/)
+    - Teks diperbesar dan ditebalkan
+    - Kolom total MBG dihapus persentasenya
+    - Jarak dan alignment diperbaiki
+    """
+    # --- Memuat Data dari Google Sheets ---
+    try:
+        kopdes_df = get_data('KOPDES')
+        mbg_df = get_data('MBG')
+
+        if kopdes_df is None or kopdes_df.empty or mbg_df is None or mbg_df.empty:
+            st.warning("Data untuk KOPDES atau MBG tidak ditemukan/kosong. Visualisasi dilewati.")
+            return
+    except Exception as e:
+        st.error(f"Gagal memuat data awal untuk KOPDES/MBG: {e}")
+        return
+
+    # --- Injeksi CSS untuk Styling Final ---
+    st.markdown("""
+    <style>
+        /* Palet Warna */
+        :root {
+            --djpb-blue-dark: #005FAC;
+            --djpb-blue-medium: #1E488F;
+            --djpb-blue-light: #EFF5FC;
+            --djpb-gold: #FFD700;
+            --djpb-gold-light: #FFF9E6;
+            --text-dark: #212529;
+            --text-light: #FFFFFF;
+            --border-color: #DEE2E6;
+            
+            /* Warna angka untuk tiap daerah */
+            --num-lhokseumawe: #4E79A7;
+            --num-bireuen: #F28E2B;
+            --num-aceh-utara: #E15759;
+        }
+
+        /* Container Kartu */
+        .summary-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        /* Kartu Statistik */
+        .summary-card-v5 {
+            background-color: var(--djpb-blue-dark);
+            color: var(--text-light);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid var(--djpb-gold);
+            box-shadow: 0 6px 20px rgba(10, 42, 94, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .summary-card-v5:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(10, 42, 94, 0.4);
+        }
+        .summary-header-v5 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .summary-title-v5 {
+            font-size: 1.3em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .summary-icon-v5 {
+            font-size: 1.8em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        /* Angka besar dengan warna emas */
+        .summary-value-v5 {
+            font-size: 3.5em;
+            font-weight: 900;
+            color: var(--djpb-gold);
+            line-height: 1;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .summary-footer-v5 {
+            margin-top: 10px;
+            font-size: 1em;
+            font-weight: 500;
+            opacity: 0.9;
+            text-align: center;
+        }
+        .progress-container-v5 {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            height: 8px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        .progress-bar-v5 {
+            background-color: var(--djpb-gold);
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        /* Desain Detail Section */
+        .data-section-v5 {
+            background-color: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .data-title-v5 {
+            font-size: 1.7em;
+            font-weight: 800;
+            color: var(--djpb-blue-dark);
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--djpb-gold);
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        /* Grid layout untuk detail data */
+        .data-row-v5 {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1fr;
+            gap: 15px;
+            align-items: center;
+            padding: 18px 10px;
+            border-bottom: 1px solid var(--djpb-blue-light);
+        }
+        .data-row-v5:last-of-type { border-bottom: none; }
+        .total-row-v5 {
+            background-color: var(--djpb-blue-light);
+            border-top: 2px solid var(--djpb-blue-medium);
+            font-weight: 700;
+            color: var(--djpb-blue-dark);
+            border-radius: 0 0 10px 10px;
+        }
+        /* Teks lebih besar dan tebal */
+        .pemda-name-v5 { 
+            font-weight: 700; 
+            font-size: 1.2em;
+            letter-spacing: 0.3px;
+            color: var(--djpb-blue-medium);
+        }
+        
+        /* Warna angka untuk tiap daerah */
+        .num-lhokseumawe { color: var(--num-lhokseumawe); }
+        .num-bireuen { color: var(--num-bireuen); }
+        .num-aceh-utara { color: var(--num-aceh-utara); }
+        
+        .data-value-v5 { 
+            text-align: right; 
+            font-family: "Consolas", "Menlo", monospace; 
+            font-size: 1.3em; 
+            font-weight: 700;
+        }
+        .percentage-v5 { 
+            text-align: center; 
+            font-weight: 800; 
+            padding: 8px 12px; 
+            border-radius: 20px; 
+            color: var(--text-dark); 
+            font-size: 1.1em; 
+        }
+        .p-high { background-color: #A8D5BA; }
+        .p-mid { background-color: #FEEFB3; }
+        .p-low { background-color: #F5C6CB; }
+        .p-100 { background-color: #B4D7F5; color: var(--djpb-blue-dark); }
+    </style>
+    """, unsafe_allow_html=True)
+
+    try:
+        # --- Proses dan Kalkulasi Data ---
+        kopdes_df['total_desa'] = kopdes_df['total_desa'].apply(parse_value)
+        kopdes_df['terbentuk'] = kopdes_df['terbentuk'].apply(parse_value)
+        kopdes_df['persentase'] = (kopdes_df['terbentuk'] / kopdes_df['total_desa'].replace(0, np.nan) * 100).fillna(0)
+
+        mbg_df['penerima'] = mbg_df['penerima'].apply(parse_value)
+        mbg_df['persentase'] = mbg_df['persentase'].apply(parse_value)
+
+        total_desa = int(kopdes_df['total_desa'].sum())
+        total_terbentuk = int(kopdes_df['terbentuk'].sum())
+        total_penerima_mbg = int(mbg_df['penerima'].sum())
+        overall_kopdes_percentage = (total_terbentuk / total_desa * 100) if total_desa > 0 else 0
+
+        # --- Tampilan Visualisasi Baru ---
+        st.markdown('<div class="summary-container">', unsafe_allow_html=True)
+        
+        # Kartu Total Desa
+        st.markdown(f"""
+            <div class="summary-card-v5">
+                <div class="summary-header-v5">
+                    <span class="summary-title-v5">TOTAL DESA</span>
+                </div>
+                <div class="summary-value-v5">{total_desa:,}</div>
+                <div class="summary-footer-v5">Wilayah Kerja</div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        # Kartu KOPDES Terbentuk
+        st.markdown(f"""
+            <div class="summary-card-v5">
+                <div class="summary-header-v5">
+                    <span class="summary-title-v5">KOPDES TERBENTUK</span>
+                </div>
+                <div class="summary-value-v5">{total_terbentuk:,}</div>
+                <div class="summary-footer-v5">
+                    <div class="progress-container-v5"><div class="progress-bar-v5" style="width: {overall_kopdes_percentage:.2f}%"></div></div>
+                    Tingkat Pembentukan: {overall_kopdes_percentage:.2f}%
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        # Kartu Penerima MBG
+        st.markdown(f"""
+            <div class="summary-card-v5">
+                <div class="summary-header-v5">
+                    <span class="summary-icon-v5">👥</span>
+                    <span class="summary-title-v5">PENERIMA MBG</span>
+                </div>
+                <div class="summary-value-v5">{total_penerima_mbg:,}</div>
+                <div class="summary-footer-v5">Total Penerima Bantuan</div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Bagian Detail KOPDES
+        st.markdown('<div class="data-section-v5"><div class="data-title-v5">STATUS PEMBENTUKAN KOPDES</div>', unsafe_allow_html=True)
+        
+        # Class warna angka untuk tiap daerah
+        num_classes = {
+            "Kota Lhokseumawe": "num-lhokseumawe",
+            "Kab. Bireuen": "num-bireuen",
+            "Kab. Aceh Utara": "num-aceh-utara"
+        }
+        
+        for _, row in kopdes_df.sort_values(by='PEMDA').iterrows():
+            num_class = num_classes.get(row['PEMDA'], '')
+            st.markdown(f"""
+            <div class="data-row-v5">
+                <span class="pemda-name-v5">{row['PEMDA']}</span>
+                <span class="data-value-v5 {num_class}">{int(row['terbentuk']):,} <span style="color: var(--text-dark); font-weight: 500;">dari</span> {int(row['total_desa']):,} desa</span>
+                <span class="percentage-v5 p-100">{row['persentase']:.0f}%</span>
+            </div>
+            """, unsafe_allow_html=True)
+            
+        st.markdown(f"""
+            <div class="data-row-v5 total-row-v5">
+                <span class="pemda-name-v5">TOTAL</span>
+                <span class="data-value-v5">{total_terbentuk:,} <span style="color: var(--text-dark); font-weight: 500;">dari</span> {total_desa:,} desa</span>
+                <span class="percentage-v5 p-100">{overall_kopdes_percentage:.0f}%</span>
+            </div></div>
+        """, unsafe_allow_html=True)
+
+        # Bagian Detail MBG
+        st.markdown('<div class="data-section-v5"><div class="data-title-v5">PENERIMA MANFAAT BANTUAN MEMBANGUN GESIT (MBG)</div>', unsafe_allow_html=True)
+        
+        for _, row in mbg_df.sort_values(by='PEMDA').iterrows():
+            num_class = num_classes.get(row['PEMDA'], '')
+            if row['persentase'] >= 7: percentage_class = "p-high"
+            elif row['persentase'] >= 5: percentage_class = "p-mid"
+            else: percentage_class = "p-low"
+            
+            st.markdown(f"""
+            <div class="data-row-v5">
+                <span class="pemda-name-v5">{row['PEMDA']}</span>
+                <span class="data-value-v5 {num_class}">{int(row['penerima']):,} Penerima</span>
+                <span class="percentage-v5 {percentage_class}">{row['persentase']:.2f}%</span>
+            </div>
+            """, unsafe_allow_html=True)
+            
+        # Total tanpa persentase
+        st.markdown(f"""
+            <div class="data-row-v5 total-row-v5">
+                <span class="pemda-name-v5">TOTAL</span>
+                <span class="data-value-v5">{total_penerima_mbg:,} Penerima</span>
+                <span></span>
+            </div></div>
+        """, unsafe_allow_html=True)
+
+    except KeyError as e:
+        st.error(f"Terjadi kesalahan: Kolom {e} tidak ditemukan di Google Sheet. Mohon periksa kembali nama kolom pada sheet 'KOPDES' atau 'MBG'.")
+    except Exception as e:
+        st.error(f"Gagal memproses visualisasi KOPDES & MBG: {e}")
