@@ -6,7 +6,10 @@ from utils import (
     display_tkd_chart,
     display_belanja_negara_chart,
     display_umi_kur_chart,
-    display_digitalisasi_chart
+    display_digitalisasi_chart,
+    display_transfer_daerah_wilayah_chart,
+    generate_press_release,
+    display_kopdes_mbg_chart
 )
 
 # --- KONFIGURASI HALAMAN ---
@@ -31,7 +34,7 @@ st.markdown("""
         to { opacity: 1; transform: translateY(0); }
     }
     .title-box {
-        background: linear-gradient(135deg, #003366, #004080);
+        background: linear-gradient(135deg, #005FAC, #006ac1); /* Warna Biru DJPb */
         color: white;
         padding: 1.5rem;
         border-radius: 15px;
@@ -63,8 +66,8 @@ st.markdown("""
 st.markdown("""
 <style>
     /* Style untuk container kartu */
-    div[data-testid="stContainer"][style*="border"] {
-        min-height: 400px;
+    div[data-testid="stVerticalBlock"] > div[style*="flex-direction: column;"] > div[data-testid="stVerticalBlock"] > div:first-child[data-testid="stContainer"][style*="border"] {
+        min-height: 450px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -74,18 +77,19 @@ st.markdown("""
         transition: all 0.3s ease;
         border: 2px solid #e0e0e0 !important;
         background-color: white;
+        margin-bottom: 2rem; /* Menambahkan jarak antar kartu */
     }
 
-    div[data-testid="stContainer"][style*="border"]:hover {
+    div[data-testid="stVerticalBlock"] > div[style*="flex-direction: column;"] > div[data-testid="stVerticalBlock"] > div:first-child[data-testid="stContainer"][style*="border"]:hover {
         transform: translateY(-5px);
         box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-        border-color: #003366 !important;
+        border-color: #005FAC !important; /* Warna Biru DJPb saat hover */
     }
 
     /* Menerapkan gaya visual baru ke komponen st.page_link */
     .page-link-box {
         display: block;
-        background: linear-gradient(135deg, #003366, #004080);
+        background: linear-gradient(135deg, #005FAC, #006ac1); /* Warna Biru DJPb */
         padding: 15px;
         border-radius: 10px;
         margin-bottom: 15px;
@@ -132,14 +136,6 @@ st.markdown("""
         letter-spacing: 0.5px;
     }
 
-    /* Garis pemisah */
-    .divider {
-        height: 3px;
-        background: linear-gradient(90deg, #003366, #4d90fe, #003366);
-        margin: 1.5rem 0;
-        border-radius: 3px;
-    }
-
     /* Animasi chart */
     @keyframes chartFadeIn {
         from { opacity: 0; transform: scale(0.95); }
@@ -147,6 +143,7 @@ st.markdown("""
     }
     .chart-container {
         animation: chartFadeIn 0.8s ease-out;
+        flex-grow: 1; /* Memastikan chart mengisi ruang yang tersedia */
     }
 </style>
 """, unsafe_allow_html=True)
@@ -154,14 +151,11 @@ st.markdown("""
 # --- TATA LETAK UTAMA MENJADI 2 KOLOM ---
 col_kiri, col_kanan = st.columns(2, gap="large")
 
-# --- KOLOM KIRI (3 KARTU) ---
+# --- KOLOM KIRI ---
 with col_kiri.container(height=500):
     # 1. KINERJA PENDAPATAN APBN
     with st.container(border=True):
-        st.markdown("""
-        <div class="page-link-box">
-            KINERJA PENDAPATAN APBN
-        """, unsafe_allow_html=True)
+        st.markdown('<div class="page-link-box">KINERJA PENDAPATAN APBN</div>', unsafe_allow_html=True)
         st.page_link(
             "pages/2_Kinerja_Pendapatan_APBN.py",
             label="Klik untuk melihat detail",
@@ -174,10 +168,7 @@ with col_kiri.container(height=500):
 with col_kiri.container(height=500):
     # 2. CAPAIAN PENYALURAN TKD
     with st.container(border=True):
-        st.markdown("""
-        <div class="page-link-box">
-            CAPAIAN PENYALURAN TKD
-        """, unsafe_allow_html=True)
+        st.markdown('<div class="page-link-box">CAPAIAN PENYALURAN TKD</div>', unsafe_allow_html=True)
         st.page_link(
             "pages/4_Capaian_Penyaluran_TKD.py",
             label="Klik untuk melihat detail",
@@ -190,10 +181,7 @@ with col_kiri.container(height=500):
 with col_kiri.container(height=500):
     # 3. PENYALURAN PEMBIAYAAN UMi & KUR
     with st.container(border=True):
-        st.markdown("""
-        <div class="page-link-box">
-            PENYALURAN PEMBIAYAAN UMi & KUR
-        """, unsafe_allow_html=True)
+        st.markdown('<div class="page-link-box">PENYALURAN PEMBIAYAAN UMi & KUR</div>', unsafe_allow_html=True)
         st.page_link(
             "pages/6_Penyaluran_Pembiayaan_UMi_KUR.py",
             label="Klik untuk melihat detail",
@@ -204,30 +192,11 @@ with col_kiri.container(height=500):
         st.markdown('</div>', unsafe_allow_html=True)
 
 
-with col_kiri.container(height=300):
-    # 4. PRESS RELEASE
-    with st.container(border=True):
-        st.markdown("""
-        <div class="page-link-box">
-            PREES RELEASE
-        """, unsafe_allow_html=True)
-        st.page_link(
-            "pages/8_Press_Release.py",
-            label="Klik untuk melihat detail",
-            help="Klik untuk melihat detail Press Release"
-        )
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-
-# --- KOLOM KANAN (3 KARTU) ---
+# --- KOLOM KANAN ---
 with col_kanan.container(height=500):
-    # 1. REALISASI BELANJA K/L
+    # 5. REALISASI BELANJA K/L
     with st.container(border=True):
-        st.markdown("""
-        <div class="page-link-box">
-            REALISASI BELANJA K/L
-        """, unsafe_allow_html=True)
+        st.markdown('<div class="page-link-box">REALISASI BELANJA K/L</div>', unsafe_allow_html=True)
         st.page_link(
             "pages/3_Realisasi_Belanja_KL.py",
             label="Klik untuk melihat detail",
@@ -238,12 +207,9 @@ with col_kanan.container(height=500):
         st.markdown('</div>', unsafe_allow_html=True)
 
 with col_kanan.container(height=500):
-    # 2. REALISASI BELANJA NEGARA
+    # 6. REALISASI BELANJA NEGARA
     with st.container(border=True):
-        st.markdown("""
-        <div class="page-link-box">
-            REALISASI BELANJA NEGARA
-        """, unsafe_allow_html=True)
+        st.markdown('<div class="page-link-box">REALISASI BELANJA NEGARA</div>', unsafe_allow_html=True)
         st.page_link(
             "pages/5_Realisasi_Belanja_Negara.py",
             label="Klik untuk melihat detail",
@@ -254,14 +220,24 @@ with col_kanan.container(height=500):
         st.markdown('</div>', unsafe_allow_html=True)
 
 with col_kanan.container(height=500):
-    # 3. CAPAIAN DIGITALISASI PEMBAYARAN
+    # 7. MONITORING KOPDES DAN MBG
     with st.container(border=True):
-        st.markdown("""
-        <div class="page-link-box">
-            CAPAIAN DIGITALISASI PEMBAYARAN
-        """, unsafe_allow_html=True)
+        st.markdown('<div class="page-link-box">MONITORING KOPDES DAN MBG</div>', unsafe_allow_html=True)
         st.page_link(
-            "pages/7_Capaian_Digitalisasi_Pembayaran.py",
+            "pages/7_Monitoring_KOPDES_dan_MBG.py",
+            label="Klik untuk melihat detail",
+            help="Klik untuk melihat detail monitoring KOPDES dan MBG"
+        )
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
+        display_kopdes_mbg_chart()
+        st.markdown('</div>', unsafe_allow_html=True)
+
+# --- BARIS PENUH UNTUK DIGITALISASI (TINGGI 300) ---
+with st.container(height=300):
+    with st.container(border=True):
+        st.markdown('<div class="page-link-box">CAPAIAN DIGITALISASI PEMBAYARAN</div>', unsafe_allow_html=True)
+        st.page_link(
+            "pages/8_Capaian_Digitalisasi_Pembayaran.py",
             label="Klik untuk melihat detail",
             help="Klik untuk melihat detail Capaian Digitalisasi Pembayaran"
         )
@@ -269,27 +245,45 @@ with col_kanan.container(height=500):
         display_digitalisasi_chart()
         st.markdown('</div>', unsafe_allow_html=True)
 
-with col_kanan.container(height=300):
-    # 4. ANTI KORUPSI
+
+# --- BARIS PENUH DENGAN 2 KOLOM UNTUK PRESS RELEASE DAN ANTI KORUPSI ---
+col_pr, col_ak = st.columns(2, gap="large")
+
+with col_pr.container(height=200):
+    # PRESS RELEASE
     with st.container(border=True):
-        st.markdown("""
-        <div class="page-link-box">
-            ANTI KORUPSI
-        """, unsafe_allow_html=True)
+        st.markdown('<div class="page-link-box">PRESS RELEASE</div>', unsafe_allow_html=True)
         st.page_link(
-            "pages/9_Anti_Korupsi.py",
+            "pages/9_Press_Release.py",
             label="Klik untuk melihat detail",
-            help="Klik untuk melihat detail Anti Korupsi"
+            help="Klik untuk melihat detail Press Release"
         )
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
+        # Kosongkan konten utama
+        st.markdown('<div class="chart-container" style="display: flex; justify-content: center; align-items: center; height: 150px;">', unsafe_allow_html=True)
+        st.markdown("Klik judul untuk melihat press release lengkap")
         st.markdown('</div>', unsafe_allow_html=True)
+
+with col_ak.container(height=200):
+    # ANTI KORUPSI
+    with st.container(border=True):
+        st.markdown('<div class="page-link-box">ANTI KORUPSI</div>', unsafe_allow_html=True)
+        st.page_link(
+            "pages/10_Anti_Korupsi.py",
+            label="Klik untuk melihat detail",
+            help="Klik untuk melihat detail Komitmen Anti Korupsi"
+        )
+        # Kosongkan konten utama
+        st.markdown('<div class="chart-container" style="display: flex; justify-content: center; align-items: center; height: 150px;">', unsafe_allow_html=True)
+        st.markdown("Klik judul untuk melihat layanan anti korupsi")
+        st.markdown('</div>', unsafe_allow_html=True)
+
 
 # --- PEMISAH AKHIR DENGAN EFEK GRADIENT ---
 st.markdown("""
 <style>
     .gradient-divider {
         height: 3px;
-        background: linear-gradient(90deg, #003366, #4d90fe, #003366);
+        background: linear-gradient(90deg, #005FAC, #D4AF37, #005FAC); /* Biru DJPb dan Emas Kemenkeu */
         margin: 2rem 0;
         border-radius: 3px;
         opacity: 0.7;
