@@ -77,9 +77,9 @@ def img_to_base64(img_path):
 
 def tampilkan_header(lebar_logo_kiri=550, lebar_intress=155, lebar_djpb=60, margin_atas='4rem', margin_bawah='5rem'):
     """
-    Menampilkan header yang disesuaikan dengan logo yang sejajar dan presisi.
-    - Logo kanan rata penuh ke kanan tanpa margin.
-    - Lebar logo kanan bisa diatur satu per satu.
+    Menampilkan header yang disesuaikan dengan logo yang sejajar di bagian bawah.
+    - Logo kiri dan kanan semua rapat ke bawah
+    - Lebar logo bisa diatur satu per satu
     """
     # CSS untuk perataan vertikal dan kontrol padding
     st.markdown(
@@ -92,9 +92,15 @@ def tampilkan_header(lebar_logo_kiri=550, lebar_intress=155, lebar_djpb=60, marg
                 padding-left: 2rem;
                 padding-right: 2rem;
             }}
-            /* CSS untuk menyejajarkan item di dalam kolom secara vertikal */
+            /* CSS untuk menyejajarkan semua item di bagian bawah */
             [data-testid="stHorizontalBlock"] {{
-                align-items: flex-end;
+                align-items: flex-end !important;
+            }}
+            /* Memastikan kolom-kolom juga align bottom */
+            .stHorizontalBlock > div {{
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end !important;
             }}
         </style>
         """,
@@ -120,7 +126,7 @@ def tampilkan_header(lebar_logo_kiri=550, lebar_intress=155, lebar_djpb=60, marg
         # Hanya tampilkan jika gambar berhasil di-load
         if intress_b64 and djpb_b64:
             st.markdown(f"""
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
+            <div style="display: flex; justify-content: flex-end; align-items: flex-end; gap: 8px;">
                 <img src="data:image/png;base64,{intress_b64}" width="{lebar_intress}">
                 <img src="data:image/png;base64,{djpb_b64}" width="{lebar_djpb}">
             </div>
