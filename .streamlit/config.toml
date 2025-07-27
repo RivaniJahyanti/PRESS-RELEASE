@@ -1,6 +1,6 @@
 [theme]
 # Biru tua sebagai warna utama widget
-primaryColor='#003366'
+primaryColor='#005FAC'
 
 # Latar belakang putih bersih
 backgroundColor='#FFFFFF'
@@ -12,4 +12,4 @@ secondaryBackgroundColor='#F0F2F6'
 textColor='#0B0B0B'
 
 # Font standar yang rapi
-font='sans serif'
+font='serif'
