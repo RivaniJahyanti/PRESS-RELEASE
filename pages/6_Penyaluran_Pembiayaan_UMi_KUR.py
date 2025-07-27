@@ -39,7 +39,7 @@ st.markdown("""
     .period {
         text-align: center;
         color: #6b7280;
-        font-size: 1.6rem;
+        font-size: 2rem;
         margin-bottom: 1.5rem;
     }
 
