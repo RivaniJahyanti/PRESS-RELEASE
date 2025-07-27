@@ -77,13 +77,16 @@ def img_to_base64(img_path):
 
 def tampilkan_header(lebar_logo_kiri=550, lebar_intress=155, lebar_djpb=60, margin_atas='4rem', margin_bawah='5rem'):
     """
-    Menampilkan header dengan semua logo sejajar sempurna di garis bawah yang sama
+    Menampilkan header dengan:
+    - Semua logo sejajar sempurna di garis bawah yang sama
+    - Logo kanan rata kanan
+    - Presisi tinggi dalam penempatan
     """
-    # CSS untuk perataan vertikal dan kontrol padding
+    # CSS untuk presisi layout
     st.markdown(
         f"""
         <style>
-            /* Mengatur padding utama */
+            /* Reset padding utama */
             div.block-container {{
                 padding-top: {margin_atas};
                 padding-bottom: {margin_bawah};
@@ -91,53 +94,63 @@ def tampilkan_header(lebar_logo_kiri=550, lebar_intress=155, lebar_djpb=60, marg
                 padding-right: 2rem;
             }}
             
-            /* Memaksa semua item sejajar di bagian bawah */
+            /* Flex container untuk header */
             [data-testid="stHorizontalBlock"] {{
                 align-items: flex-end !important;
             }}
             
-            /* Container gambar di setiap kolom */
-            .stImage {{
-                display: flex;
-                align-items: flex-end !important;
-                margin-bottom: 0 !important;
+            /* Kolom logo kiri */
+            [data-testid="column"]:nth-of-type(1) {{
+                align-self: flex-end !important;
                 padding-bottom: 0 !important;
             }}
             
-            /* Untuk logo kanan */
-            .logo-container {{
-                display: flex;
+            /* Kolom logo kanan */
+            [data-testid="column"]:nth-of-type(3) {{
+                display: flex !important;
+                justify-content: flex-end !important;
                 align-items: flex-end !important;
-                height: 100%;
+                padding-bottom: 0 !important;
+            }}
+            
+            /* Reset margin gambar */
+            .stImage img {{
+                margin-bottom: 0 !important;
+                vertical-align: bottom !important;
+            }}
+            
+            /* Container logo kanan */
+            .logo-kanan-container {{
+                display: flex !important;
+                gap: 8px !important;
+                align-items: flex-end !important;
             }}
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    # Mengatur kolom utama
-    col_logo_kiri, col_kosong, col_logo_kanan = st.columns([2, 5, 2.5])
+    # Layout kolom
+    col1, col2, col3 = st.columns([2, 5, 2.5])
 
-    with col_logo_kiri:
-        # Logo Kemenkeu dengan penyesuaian
-        st.image("logo/KEMENKEU.png", width=lebar_logo_kiri)
+    with col1:
+        # Logo Kemenkeu dengan penyesuaian presisi
+        st.markdown(
+            f'<div style="display:flex;align-items:flex-end;height:100%;">'
+            f'<img src="data:image/png;base64,{img_to_base64("logo/KEMENKEU.png")}" width="{lebar_logo_kiri}" style="vertical-align:bottom;">'
+            f'</div>',
+            unsafe_allow_html=True
+        )
 
-    with col_logo_kanan:
-        # Path logo
-        intress_path = "logo/INTRESS.png"
-        djpb_path = "logo/DJPb.png"
-
-        # Encode gambar ke base64
-        intress_b64 = img_to_base64(intress_path)
-        djpb_b64 = img_to_base64(djpb_path)
-
-        if intress_b64 and djpb_b64:
-            st.markdown(f"""
-            <div class="logo-container">
-                <img src="data:image/png;base64,{intress_b64}" width="{lebar_intress}" style="margin-bottom:0; padding-bottom:0;">
-                <img src="data:image/png;base64,{djpb_b64}" width="{lebar_djpb}" style="margin-bottom:0; padding-bottom:0;">
-            </div>
-            """, unsafe_allow_html=True)
+    with col3:
+        # Logo kanan (INTRESS dan DJPb) rata kanan
+        st.markdown(
+            f'<div class="logo-kanan-container">'
+            f'<img src="data:image/png;base64,{img_to_base64("logo/INTRESS.png")}" width="{lebar_intress}" style="vertical-align:bottom;">'
+            f'<img src="data:image/png;base64,{img_to_base64("logo/DJPb.png")}" width="{lebar_djpb}" style="vertical-align:bottom;">'
+            f'</div>',
+            unsafe_allow_html=True
+        )
 # --- FUNGSI-FUNGSI VISUALISASI LENGKAP ---
 
 def display_pendapatan_infographic():
