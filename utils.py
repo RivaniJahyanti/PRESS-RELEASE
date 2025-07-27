@@ -1316,7 +1316,7 @@ def generate_press_release():
             total_penerima_mbg = int(mbg_df['penerima'].sum())
             overall_kopdes_percentage = (total_terbentuk / total_desa * 100) if total_desa > 0 else 0
             
-            press_sections.append("## 0. CAPAIAN KOPDES & MBG\n---\n")
+            press_sections.append("## 6. CAPAIAN KOPDES & MBG\n---\n")
             
             # --- Ringkasan Utama ---
             press_sections.append(
@@ -1362,7 +1362,7 @@ def generate_press_release():
             digital_df['nilai_num'] = digital_df['Nilai Transaksi (Rp)'].apply(parse_value)
             digital_df['yoy_num'] = digital_df['Pertumbuhan YoY (%)'].apply(parse_value)
 
-            press_sections.append("## 6. CAPAIAN DIGITALISASI PEMBAYARAN\n---\n")
+            press_sections.append("## 7. CAPAIAN DIGITALISASI PEMBAYARAN\n---\n")
             # --- Total Digitalisasi ---
             total_transaksi = digital_df['Jumlah Transaksi'].sum() if 'Jumlah Transaksi' in digital_df.columns else None
             total_nilai = digital_df['nilai_num'].sum()
