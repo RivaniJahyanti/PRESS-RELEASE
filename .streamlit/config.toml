@@ -13,3 +13,5 @@ textColor='#0B0B0B'
 
 # Font standar yang rapi
 font='serif'
+
+base = "light"
