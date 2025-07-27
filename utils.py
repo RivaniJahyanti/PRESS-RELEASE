@@ -105,14 +105,6 @@ def tampilkan_header(lebar_logo_kiri=550, lebar_intress=155, lebar_djpb=60, marg
                 padding-bottom: 0 !important;
             }}
             
-            /* Kolom logo kanan */
-            [data-testid="column"]:nth-of-type(3) {{
-                display: flex !important;
-                justify-content: flex-end !important;
-                align-items: flex-end !important;
-                padding-bottom: 0 !important;
-            }}
-            
             /* Reset margin gambar */
             .stImage img {{
                 margin-bottom: 0 !important;
@@ -143,14 +135,22 @@ def tampilkan_header(lebar_logo_kiri=550, lebar_intress=155, lebar_djpb=60, marg
         )
 
     with col3:
-        # Logo kanan (INTRESS dan DJPb) rata kanan
-        st.markdown(
-            f'<div class="logo-kanan-container">'
-            f'<img src="data:image/png;base64,{img_to_base64("logo/INTRESS.png")}" width="{lebar_intress}" style="vertical-align:bottom;">'
-            f'<img src="data:image/png;base64,{img_to_base64("logo/DJPb.png")}" width="{lebar_djpb}" style="vertical-align:bottom;">'
-            f'</div>',
-            unsafe_allow_html=True
-        )
+        # Path logo
+        intress_path = "logo/INTRESS.png"
+        djpb_path = "logo/DJPb.png"
+
+        # Encode gambar ke base64
+        intress_b64 = img_to_base64(intress_path)
+        djpb_b64 = img_to_base64(djpb_path)
+
+        # Hanya tampilkan jika gambar berhasil di-load
+        if intress_b64 and djpb_b64:
+            st.markdown(f"""
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
+                <img src="data:image/png;base64,{intress_b64}" width="{lebar_intress}">
+                <img src="data:image/png;base64,{djpb_b64}" width="{lebar_djpb}">
+            </div>
+            """, unsafe_allow_html=True)
 # --- FUNGSI-FUNGSI VISUALISASI LENGKAP ---
 
 def display_pendapatan_infographic():
