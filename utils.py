@@ -567,13 +567,14 @@ def display_umi_kur_chart():
         /* <-- PERUBAHAN: Ukuran font diperbesar --> */
         .umi-item { display: flex; align-items: center; margin-bottom: 15px; font-size: 1.2em; }
         .umi-label { width: 120px; text-align: right; padding-right: 15px; font-weight: 600; color: #333; }
-        .umi-bar-container { flex-grow: 1; }
+        .umi-bar-container { flex-grow: 1; margin-right: 8px;  }
         .umi-bar {
             height: 35px; /* Sedikit lebih tinggi */
             border-radius: 5px; color: white; display: flex;
             align-items: center; justify-content: center; font-weight: 700; /* Font lebih tebal */
             text-shadow: 1px 1px 1px rgba(0,0,0,0.4); margin: 0 auto;
             font-size: 0.9em; /* Ukuran font di dalam bar disesuaikan */
+            padding: 5px; 
         }
         .umi-bar-0 { background: linear-gradient(45deg, #ffc107, #ffca2c); }
         .umi-bar-1 { background: linear-gradient(45deg, #007bff, #3395ff); }
