@@ -574,14 +574,14 @@ def display_umi_kur_chart():
             align-items: center; justify-content: center; font-weight: 700; /* Font lebih tebal */
             text-shadow: 1px 1px 1px rgba(0,0,0,0.4); margin: 0 auto;
             font-size: 0.9em; /* Ukuran font di dalam bar disesuaikan */
-            padding: 5px; 
+            padding: 3px; 
         }
         .umi-bar-0 { background: linear-gradient(45deg, #ffc107, #ffca2c); }
         .umi-bar-1 { background: linear-gradient(45deg, #007bff, #3395ff); }
         .umi-bar-2 { background: linear-gradient(45deg, #28a745, #34ce57); }
         .umi-debitur-details {
             width: 150px; /* Sedikit lebih lebar */
-            text-align: left; padding-left: 5px;
+            text-align: left; padding-left: 3px;
             font-weight: 600; color: #333; white-space: nowrap;
         }
 
