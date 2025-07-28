@@ -1640,7 +1640,6 @@ def display_kopdes_mbg_chart():
                     <span class="summary-title-v5">TOTAL DESA</span>
                 </div>
                 <div class="summary-value-v5">{total_desa:,}</div>
-                #<div class="summary-footer-v5">Wilayah Kerja</div>
             </div>
         """, unsafe_allow_html=True)
         
