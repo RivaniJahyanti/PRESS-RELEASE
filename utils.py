@@ -1389,21 +1389,13 @@ def generate_press_release():
 
                 trend = "↑" if row['yoy_num'] >= 0 else "↓"
                 platform_info.append(
-                    f"- Pertumbuhan YoY: {abs(row['yoy_num']):.2f}% {trend} "
-                    f"({'naik' if row['yoy_num'] >= 0 else 'turun'})"
-                )
+                    f"-YoY: {abs(row['yoy_num']):.2f}% {trend} "
+                    f"({'naik' if row['yoy_num'] > 0 else ('stabil' if row['yoy_num'] == 0 else 'turun')})"
 
                 press_sections.append("\n".join(platform_info))
 
             # --- Analisis Kinerja ---
             press_sections.append("\n### **Analisis Kinerja**")
-
-            # Platform dengan nilai transaksi tertinggi
-            max_platform = digital_df.loc[digital_df['nilai_num'].idxmax()]
-            press_sections.append(
-                f"- Platform dominan: **{max_platform['Platform']}** "
-                f"(kontribusi {max_platform['nilai_num']/total_nilai*100:.1f}% dari total)."
-            )
 
             # Platform dengan pertumbuhan terbaik
             growing = digital_df[digital_df['yoy_num'] > 0]
