@@ -766,7 +766,7 @@ def display_digitalisasi_chart():
         .digi-metric-value { 
             font-size: 1.8rem; 
             font-weight: 800; 
-            color: var(--djpb-dark); 
+            color: #ffffff; 
             line-height: 1.2; 
         }
         .digi-yoy { 
@@ -776,16 +776,16 @@ def display_digitalisasi_chart():
             border-radius: 12px;
         }
         .digi-yoy-pos { 
-            background-color: var(--djpb-green-light);
-            color: var(--djpb-green);
+            background-color:#aad576;
+            color: #538d22;
         }
         .digi-yoy-neg { 
-            background-color: var(--djpb-red-light);
-            color: var(--djpb-red);
+            background-color: #ffb887;
+            color: #e34234;
         }
         .digi-yoy-zero { 
-            background-color: var(--djpb-light);
-            color: #6c757d;
+            background-color: #f2f7f7;
+            color: #dae7e7;
         }
     </style>
     """, unsafe_allow_html=True)
