@@ -1652,8 +1652,6 @@ def display_kopdes_mbg_chart():
                 </div>
                 <div class="summary-value-v5">{total_terbentuk:,}</div>
                 <div class="summary-footer-v5">
-                    <div class="progress-container-v5"><div class="progress-bar-v5" style="width: {overall_kopdes_percentage:.2f}%"></div></div>
-                    Tingkat Pembentukan: {overall_kopdes_percentage:.2f}%
                 </div>
             </div>
         """, unsafe_allow_html=True)
@@ -1701,7 +1699,7 @@ def display_kopdes_mbg_chart():
         """, unsafe_allow_html=True)
 
         # Bagian Detail MBG
-        st.markdown('<div class="data-section-v5"><div class="data-title-v5">PENERIMA MANFAAT BANTUAN MEMBANGUN GESIT (MBG)</div>', unsafe_allow_html=True)
+        st.markdown('<div class="data-section-v5"><div class="data-title-v5">PENERIMA MAKANAN BERGIZI GRATIS (MBG)</div>', unsafe_allow_html=True)
         
         for _, row in mbg_df.sort_values(by='PEMDA').iterrows():
             num_class = num_classes.get(row['PEMDA'], '')
