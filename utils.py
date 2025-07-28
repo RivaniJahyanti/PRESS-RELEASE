@@ -776,7 +776,7 @@ def display_digitalisasi_chart():
             border-radius: 12px;
         }
         .digi-yoy-pos { 
-            background-color:#aad576;
+            background-color:#ddf0b2;
             color: #143601;
         }
         .digi-yoy-neg { 
