@@ -684,16 +684,16 @@ def display_digitalisasi_chart():
     <style>
         /* TEMA KEMENKEU/DJPB */
         :root {
-            --djpb-blue: #0056b3;
-            --djpb-blue-light: #e6f0fa;
-            --djpb-red: #e63946;
-            --djpb-red-light: #fae6e8;
-            --djpb-gold: #d4af37;
-            --djpb-gold-light: #faf6e6;
-            --djpb-green: #198754;
-            --djpb-green-light: #e6f5ec;
-            --djpb-dark: #212529;
-            --djpb-light: #f8f9fa;
+            --djpb-blue: #caf0f8;
+            --djpb-blue-light: #caf0f8;
+            --djpb-red: #fff0f3;
+            --djpb-red-light: #fff0f3;
+            --djpb-gold: #fdffb6;
+            --djpb-gold-light: #fdffb6;
+            --djpb-green: #b9fbc0;
+            --djpb-green-light: #b9fbc0;
+            --djpb-dark: #184e77;
+            --djpb-light: #bde0fe;
         }
         
         .digi-card { 
@@ -811,7 +811,7 @@ def display_digitalisasi_chart():
                 'color': 'var(--djpb-blue)', 
                 'icon': '📱',
                 'box_colors': [
-                    'var(--djpb-blue-light)',    # SATKER - Biru
+                    'var(--djpb-blue)',    # SATKER - Biru
                     'var(--djpb-red-light)',    # VENDOR - Merah
                     'var(--djpb-gold-light)',   # TRANSAKSI - Emas
                     'var(--djpb-green-light)'   # NILAI TRANSAKSI - Hijau
