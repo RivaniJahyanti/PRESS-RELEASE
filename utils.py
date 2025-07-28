@@ -780,12 +780,12 @@ def display_digitalisasi_chart():
             color: #538d22;
         }
         .digi-yoy-neg { 
-            background-color: #ffb887;
+            background-color: #ffe1c8;
             color: #e34234;
         }
         .digi-yoy-zero { 
             background-color: #f2f7f7;
-            color: #dae7e7;
+            color: #6c7b8b;
         }
     </style>
     """, unsafe_allow_html=True)
