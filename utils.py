@@ -752,7 +752,7 @@ def display_digitalisasi_chart():
         }
         .digi-metric-label { 
             font-size: 1rem; 
-            color: #495057; 
+            color: #ffffff; 
             margin-bottom: 10px; 
             font-weight: 600;
         }
