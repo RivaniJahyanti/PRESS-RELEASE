@@ -1648,7 +1648,7 @@ def display_kopdes_mbg_chart():
         st.markdown(f"""
             <div class="summary-card-v5">
                 <div class="summary-header-v5">
-                    <span class="summary-title-v5">KOPDES TERBENTUK</span>
+                    <span class="summary-title-v5">Desa Yang Telah Melaksanakan Musdes</span>
                 </div>
                 <div class="summary-value-v5">{total_terbentuk:,}</div>
                 <div class="summary-footer-v5">
@@ -1673,7 +1673,7 @@ def display_kopdes_mbg_chart():
         st.markdown('</div>', unsafe_allow_html=True)
 
         # Bagian Detail KOPDES
-        st.markdown('<div class="data-section-v5"><div class="data-title-v5">STATUS PEMBENTUKAN KOPDES</div>', unsafe_allow_html=True)
+        st.markdown('<div class="data-section-v5"><div class="data-title-v5">Desa Yang Telah Melaksanakan Musdes</div>', unsafe_allow_html=True)
         
         # Class warna angka untuk tiap daerah
         num_classes = {
