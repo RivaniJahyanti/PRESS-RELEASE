@@ -684,16 +684,16 @@ def display_digitalisasi_chart():
     <style>
         /* TEMA KEMENKEU/DJPB */
         :root {
-            --djpb-blue: #caf0f8;
-            --djpb-blue-light: #caf0f8;
-            --djpb-red: #fff0f3;
-            --djpb-red-light: #fff0f3;
-            --djpb-gold: #fdffb6;
-            --djpb-gold-light: #fdffb6;
-            --djpb-green: #b9fbc0;
-            --djpb-green-light: #b9fbc0;
+            --djpb-blue: #03045e;
+            --djpb-blue-light: #03045e;
+            --djpb-red: #0077b6;
+            --djpb-red-light: #0077b6;
+            --djpb-gold: #00b4d8;
+            --djpb-gold-light: #00b4d8;
+            --djpb-green: #90e0ef;
+            --djpb-green-light: #90e0ef;
             --djpb-dark: #184e77;
-            --djpb-light: #bde0fe;
+            --djpb-light: #caf0f8;
         }
         
         .digi-card { 
