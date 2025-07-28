@@ -1390,7 +1390,7 @@ def generate_press_release():
                 trend = "↑" if row['yoy_num'] >= 0 else "↓"
                 platform_info.append(
                     f"-YoY: {abs(row['yoy_num']):.2f}% {trend} "
-                    f"({'naik' if row['yoy_num'] > 0 else ('stabil' if row['yoy_num'] == 0 else 'turun')})"
+                    f"({'naik' if row['yoy_num'] > 0 else ('stabil' if row['yoy_num'] == 0 else 'turun')})")
 
                 press_sections.append("\n".join(platform_info))
 
