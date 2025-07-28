@@ -1664,7 +1664,7 @@ def display_kopdes_mbg_chart():
                     <span class="summary-title-v5">PENERIMA MBG</span>
                 </div>
                 <div class="summary-value-v5">{total_penerima_mbg:,}</div>
-                <div class="summary-footer-v5">Total Penerima Bantuan</div>
+                <div class="summary-footer-v5">Total Penerima</div>
             </div>
         """, unsafe_allow_html=True)
         
