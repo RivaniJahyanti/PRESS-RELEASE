@@ -777,7 +777,7 @@ def display_digitalisasi_chart():
         }
         .digi-yoy-pos { 
             background-color:#aad576;
-            color: #538d22;
+            color: #143601;
         }
         .digi-yoy-neg { 
             background-color: #ffe1c8;
@@ -785,7 +785,7 @@ def display_digitalisasi_chart():
         }
         .digi-yoy-zero { 
             background-color: #f2f7f7;
-            color: #6c7b8b;
+            color: #2b2827;
         }
     </style>
     """, unsafe_allow_html=True)
