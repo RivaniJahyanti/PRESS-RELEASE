@@ -196,5 +196,5 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Keterangan:**
-- **Sumber:**
+- **Sumber:** SINTESA
 """)
