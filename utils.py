@@ -903,7 +903,7 @@ def generate_press_release():
     press_sections = []
     today = "Rabu, 23 Juli 2025"
 
-# --- 1. BAGIAN PENDAPATAN ---
+    # --- 1. BAGIAN PENDAPATAN ---
     pendapatan_df = get_data('KINERJA PENDAPATAN APBN')
     if not pendapatan_df.empty:
         try:
@@ -918,15 +918,15 @@ def generate_press_release():
 
             # --- Total Pendapatan ---
             press_sections.append(
-                f"**Total Pendapatan Negara** mencapai **{format_otomatis(penerimaan_dalam_negeri['anggaran_num'])}**."
-                # f"mengalami pertumbuhan sebesar **{penerimaan_dalam_negeri['yoy_num']:.2f}%** (year-on-year)."
+                f"**Total Pendapatan Negara** mencapai **{format_otomatis(penerimaan_dalam_negeri['anggaran_num'])}**, "
+                f"mengalami pertumbuhan sebesar **{penerimaan_dalam_negeri['yoy_num']:.2f}%** (year-on-year)."
             )
 
             # --- Perpajakan Detail ---
             press_sections.append("\n### **Penerimaan Perpajakan**")
             press_sections.append(
                 f"- Kontribusi total: **{format_otomatis(perpajakan['anggaran_num'])}** "
-                # f"({perpajakan['yoy_num']:.2f}% YoY)"
+                f"({perpajakan['yoy_num']:.2f}% YoY)"
             )
 
             pajak_dalam_negeri = pendapatan_df[pendapatan_df['kategori'] == 'Pajak Dalam Negeri'].iloc[0]
@@ -935,12 +935,47 @@ def generate_press_release():
             press_sections.append("  - Rincian:")
             press_sections.append(
                 f"    - **Pajak Dalam Negeri**: {format_otomatis(pajak_dalam_negeri['anggaran_num'])} "
-                # f"(Tumbuh {pajak_dalam_negeri['yoy_num']:.2f}% YoY)"
+                f"(Tumbuh {pajak_dalam_negeri['yoy_num']:.2f}% YoY)"
             )
             press_sections.append(
                 f"    - **Pajak Perdagangan Internasional**: {format_otomatis(pajak_perdagangan['anggaran_num'])} "
-                # f"(Tumbuh {pajak_perdagangan['yoy_num']:.2f}% YoY)"
+                f"(Tumbuh {pajak_perdagangan['yoy_num']:.2f}% YoY)"
             )
+
+            # --- PNBP Detail ---
+            press_sections.append("\n### **Penerimaan Negara Bukan Pajak (PNBP)**")
+            press_sections.append(
+                f"- Kontribusi total: **{format_otomatis(pnbp['anggaran_num'])}** "
+                f"({pnbp['yoy_num']:.2f}% YoY)"
+            )
+
+            pnbp_lainnya = pendapatan_df[pendapatan_df['kategori'] == 'PNBP Lainnya'].iloc[0]
+            pendapatan_blu = pendapatan_df[pendapatan_df['kategori'] == 'Pendapatan BLU'].iloc[0]
+
+            press_sections.append("  - Rincian:")
+            press_sections.append(
+                f"    - **PNBP Lainnya**: {format_otomatis(pnbp_lainnya['anggaran_num'])} "
+                f"({pnbp_lainnya['yoy_num']:.2f}% YoY)"
+            )
+            press_sections.append(
+                f"    - **Pendapatan BLU**: {format_otomatis(pendapatan_blu['anggaran_num'])} "
+                f"(Tumbuh {pendapatan_blu['yoy_num']:.2f}% YoY)"
+            )
+
+            # --- Analysis Commentary ---
+            press_sections.append("\n### **Analisis**")
+            if penerimaan_dalam_negeri['yoy_num'] > 0:
+                press_sections.append("- Pertumbuhan pendapatan negara secara keseluruhan menunjukkan tren positif.")
+            else:
+                press_sections.append("- Terjadi perlambatan dalam pertumbuhan pendapatan negara.")
+
+            if pnbp['yoy_num'] < 0:
+                press_sections.append("- Penerimaan PNBP mengalami kontraksi yang perlu menjadi perhatian.")
+
+        except Exception as e:
+            press_sections.append(f"\n**Gagal memproses data pendapatan**: {str(e)}")
+
+
     # --- 2. BAGIAN BELANJA KL---
     belanja_df = get_data('REALISASI BELANJA KL')
     if not belanja_df.empty:
@@ -1263,33 +1298,33 @@ def generate_press_release():
     # --- 6. BAGIAN KOPDES & MBG ---
     kopdes_df = get_data('KOPDES')
     mbg_df = get_data('MBG')
-    
+
     if not kopdes_df.empty and not mbg_df.empty:
         try:
             # Proses data KOPDES
             kopdes_df['total_desa'] = kopdes_df['total_desa'].apply(parse_value)
             kopdes_df['terbentuk'] = kopdes_df['terbentuk'].apply(parse_value)
             kopdes_df['persentase'] = (kopdes_df['terbentuk'] / kopdes_df['total_desa'].replace(0, np.nan) * 100).fillna(0)
-            
+
             # Proses data MBG
             mbg_df['penerima'] = mbg_df['penerima'].apply(parse_value)
             mbg_df['persentase'] = mbg_df['persentase'].apply(parse_value)
-            
+
             # Hitung total
             total_desa = int(kopdes_df['total_desa'].sum())
             total_terbentuk = int(kopdes_df['terbentuk'].sum())
             total_penerima_mbg = int(mbg_df['penerima'].sum())
             overall_kopdes_percentage = (total_terbentuk / total_desa * 100) if total_desa > 0 else 0
-            
-            press_sections.append("## 6. CAPAIAN KOPDES & MBG\n---\n")
-            
+
+            press_sections.append("## 0. CAPAIAN KOPDES & MBG\n---\n")
+
             # --- Ringkasan Utama ---
             press_sections.append(
                 f"**Pembentukan KOPDES** telah mencapai **{total_terbentuk:,} desa** dari total **{total_desa:,} desa** "
                 f"di wilayah kerja (**{overall_kopdes_percentage:.0f}%**). Sementara itu, "
                 f"**Program MBG** telah menjangkau **{total_penerima_mbg:,} penerima** manfaat."
             )
-            
+
             # --- Detail KOPDES ---
             press_sections.append("\n### **Detail Pembentukan KOPDES**")
             for _, row in kopdes_df.sort_values(by='PEMDA').iterrows():
@@ -1297,7 +1332,7 @@ def generate_press_release():
                     f"- **{row['PEMDA']}**: {int(row['terbentuk']):,} desa "
                     f"(**{row['persentase']:.0f}%** dari total {int(row['total_desa']):,} desa)"
                 )
-            
+
             # --- Detail MBG ---
             press_sections.append("\n### **Detail Penerima MBG**")
             for _, row in mbg_df.sort_values(by='PEMDA').iterrows():
@@ -1305,17 +1340,17 @@ def generate_press_release():
                     f"- **{row['PEMDA']}**: {int(row['penerima']):,} penerima "
                     f"(**{row['persentase']:.2f}%** dari target)"
                 )
-            
+
             # --- Analisis Kinerja ---
-            press_sections.append("\n### **Analisis Kinerja**") 
-            
+            press_sections.append("\n### **Analisis Kinerja**")
+
             # Highlight wilayah dengan pencapaian terbaik
             best_mbg = mbg_df.loc[mbg_df['persentase'].idxmax()]
             press_sections.append(
                 f"\n- **Wilayah dengan penyerapan MBG tertinggi**: "
                 f"{best_mbg['PEMDA']} ({best_mbg['persentase']:.2f}%)"
             )
-            
+
         except Exception as e:
             press_sections.append(f"\n**Gagal memproses data KOPDES & MBG**: {str(e)}")
 
@@ -1327,7 +1362,7 @@ def generate_press_release():
             digital_df['nilai_num'] = digital_df['Nilai Transaksi (Rp)'].apply(parse_value)
             digital_df['yoy_num'] = digital_df['Pertumbuhan YoY (%)'].apply(parse_value)
 
-            press_sections.append("## 7. CAPAIAN DIGITALISASI PEMBAYARAN\n---\n")
+            press_sections.append("## 6. CAPAIAN DIGITALISASI PEMBAYARAN\n---\n")
             # --- Total Digitalisasi ---
             total_transaksi = digital_df['Jumlah Transaksi'].sum() if 'Jumlah Transaksi' in digital_df.columns else None
             total_nilai = digital_df['nilai_num'].sum()
@@ -1352,15 +1387,23 @@ def generate_press_release():
 
                 platform_info.append(f"- Nilai transaksi: {format_otomatis(row['nilai_num'])}")
 
-                trend = "↑" if row['yoy_num'] > 0 else "-" if row["yoy_num"] == 0 else "↓"
+                trend = "↑" if row['yoy_num'] >= 0 else "↓"
                 platform_info.append(
-                    f"- YoY: {abs(row['yoy_num']):.2f}% {trend} "
-                    f"({'naik' if row['yoy_num'] > 0 else ('stabil' if row['yoy_num'] == 0 else 'turun')})")
+                    f"- Pertumbuhan YoY: {abs(row['yoy_num']):.2f}% {trend} "
+                    f"({'naik' if row['yoy_num'] >= 0 else 'turun'})"
+                )
 
                 press_sections.append("\n".join(platform_info))
 
             # --- Analisis Kinerja ---
             press_sections.append("\n### **Analisis Kinerja**")
+
+            # Platform dengan nilai transaksi tertinggi
+            max_platform = digital_df.loc[digital_df['nilai_num'].idxmax()]
+            press_sections.append(
+                f"- Platform dominan: **{max_platform['Platform']}** "
+                f"(kontribusi {max_platform['nilai_num']/total_nilai*100:.1f}% dari total)."
+            )
 
             # Platform dengan pertumbuhan terbaik
             growing = digital_df[digital_df['yoy_num'] > 0]
@@ -1390,6 +1433,7 @@ def generate_press_release():
 
         final_report = header + press_sections
         return "\n\n".join(final_report)
+
 
 def display_kopdes_mbg_chart():
     """
