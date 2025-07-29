@@ -908,7 +908,7 @@ def generate_press_release():
     if not pendapatan_df.empty:
         try:
             pendapatan_df['anggaran_num'] = pendapatan_df['anggaran (Rp)'].apply(parse_value)
-            #pendapatan_df['yoy_num'] = pendapatan_df['% yoy'].apply(parse_value)
+            pendapatan_df['yoy_num'] = pendapatan_df['% yoy'].apply(parse_value)
 
             press_sections.append("## 1. KINERJA PENDAPATAN NEGARA\n---\n")
             # --- Main Categories ---
@@ -918,15 +918,13 @@ def generate_press_release():
 
             # --- Total Pendapatan ---
             press_sections.append(
-                f"**Total Pendapatan Negara** mencapai **{format_otomatis(penerimaan_dalam_negeri['anggaran_num'])}**, "
-                #f"mengalami pertumbuhan sebesar **{penerimaan_dalam_negeri['yoy_num']:.2f}%** (year-on-year)."
+                f"**Total Pendapatan Negara** mencapai **{format_otomatis(penerimaan_dalam_negeri['anggaran_num'])}**"
             )
 
             # --- Perpajakan Detail ---
             press_sections.append("\n### **Penerimaan Perpajakan**")
             press_sections.append(
                 f"- Kontribusi total: **{format_otomatis(perpajakan['anggaran_num'])}** "
-                #f"({perpajakan['yoy_num']:.2f}% YoY)"
             )
 
             pajak_dalam_negeri = pendapatan_df[pendapatan_df['kategori'] == 'Pajak Dalam Negeri'].iloc[0]
@@ -935,18 +933,15 @@ def generate_press_release():
             press_sections.append("  - Rincian:")
             press_sections.append(
                 f"    - **Pajak Dalam Negeri**: {format_otomatis(pajak_dalam_negeri['anggaran_num'])} "
-                #f"(Tumbuh {pajak_dalam_negeri['yoy_num']:.2f}% YoY)"
             )
             press_sections.append(
                 f"    - **Pajak Perdagangan Internasional**: {format_otomatis(pajak_perdagangan['anggaran_num'])} "
-                #f"(Tumbuh {pajak_perdagangan['yoy_num']:.2f}% YoY)"
             )
 
             # --- PNBP Detail ---
             press_sections.append("\n### **Penerimaan Negara Bukan Pajak (PNBP)**")
             press_sections.append(
                 f"- Kontribusi total: **{format_otomatis(pnbp['anggaran_num'])}** "
-                #f"({pnbp['yoy_num']:.2f}% YoY)"
             )
 
             pnbp_lainnya = pendapatan_df[pendapatan_df['kategori'] == 'PNBP Lainnya'].iloc[0]
@@ -955,11 +950,9 @@ def generate_press_release():
             press_sections.append("  - Rincian:")
             press_sections.append(
                 f"    - **PNBP Lainnya**: {format_otomatis(pnbp_lainnya['anggaran_num'])} "
-                #f"({pnbp_lainnya['yoy_num']:.2f}% YoY)"
             )
             press_sections.append(
                 f"    - **Pendapatan BLU**: {format_otomatis(pendapatan_blu['anggaran_num'])} "
-                #f"(Tumbuh {pendapatan_blu['yoy_num']:.2f}% YoY)"
             )
 
     # --- 2. BAGIAN BELANJA KL---
