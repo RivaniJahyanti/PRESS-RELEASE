@@ -195,9 +195,9 @@ def display_pendapatan_infographic():
 
         for item in display_data:
             details_class = "pend-details-sub" if item['level'] == 2 else "pend-details"
-            if item['yoy'] > 0: yoy_class, yoy_symbol = "pend-yoy-positive", "▲"
-            elif item['yoy'] < 0: yoy_class, yoy_symbol = "pend-yoy-negative", "▼"
-            else: yoy_class, yoy_symbol = "pend-yoy-zero", "▬"
+            #if item['yoy'] > 0: yoy_class, yoy_symbol = "pend-yoy-positive", "▲"
+            #elif item['yoy'] < 0: yoy_class, yoy_symbol = "pend-yoy-negative", "▼"
+            #else: yoy_class, yoy_symbol = "pend-yoy-zero", "▬"
             st.markdown(f"""
             <div class="pend-row"><div class="pend-icon">{item['icon']}</div><div class="{details_class}">
             <div class="pend-category">{item['cat']}</div><div><span class="pend-amount">{format_otomatis(item['amount'])}</span>
