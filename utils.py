@@ -962,20 +962,6 @@ def generate_press_release():
                 #f"(Tumbuh {pendapatan_blu['yoy_num']:.2f}% YoY)"
             )
 
-            # --- Analysis Commentary ---
-            #press_sections.append("\n### **Analisis**")
-            #if penerimaan_dalam_negeri['yoy_num'] > 0:
-                #press_sections.append("- Pertumbuhan pendapatan negara secara keseluruhan menunjukkan tren positif.")
-            #else:
-                #press_sections.append("- Terjadi perlambatan dalam pertumbuhan pendapatan negara.")
-
-            #if pnbp['yoy_num'] < 0:
-                #press_sections.append("- Penerimaan PNBP mengalami kontraksi yang perlu menjadi perhatian.")
-
-        #except Exception as e:
-            #press_sections.append(f"\n**Gagal memproses data pendapatan**: {str(e)}")
-
-
     # --- 2. BAGIAN BELANJA KL---
     belanja_df = get_data('REALISASI BELANJA KL')
     if not belanja_df.empty:
