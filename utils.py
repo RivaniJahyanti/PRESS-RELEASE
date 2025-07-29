@@ -201,7 +201,7 @@ def display_pendapatan_infographic():
             st.markdown(f"""
             <div class="pend-row"><div class="pend-icon">{item['icon']}</div><div class="{details_class}">
             <div class="pend-category">{item['cat']}</div><div><span class="pend-amount">{format_otomatis(item['amount'])}</span>
-            <span class="pend-yoy {yoy_class}">{yoy_symbol} {item['yoy']:.2f}% yoy</span></div></div></div>
+            </div></div></div>
             """, unsafe_allow_html=True)
     except Exception as e:
         st.error(f"Gagal memproses visualisasi Pendapatan: {e}")
