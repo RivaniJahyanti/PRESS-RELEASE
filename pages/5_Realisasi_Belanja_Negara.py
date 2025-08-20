@@ -79,7 +79,7 @@ st.markdown("<h3 class='sub-header'>Lingkup KPPN Lhokseumawe</h3>", unsafe_allow
 
 # Periode/tanggal
 current_year = datetime.now().year
-st.markdown(f"<p class='period'>Periode: Januari - Juni {current_year}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='period'>Periode: Januari - Juli {current_year}</p>", unsafe_allow_html=True)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
@@ -104,6 +104,6 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
-- **Sumber:** SINTESA 30 Juni 2025
-- Data yang disajikan adalah per tanggal 30 Juni 2025
+- **Sumber:** SINTESA 31 Juli 2025
+- Data yang disajikan adalah per tanggal 31 Juli 2025
 """)
