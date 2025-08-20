@@ -147,7 +147,7 @@ with st.container():
                 <h2 style="border-bottom: none;">SIARAN PERS KINERJA APBN</h2>
                 <p style="font-weight: bold;">KEMENTERIAN KEUANGAN RI</p>
                 <p>Kantor Pelayanan Perbendaharaan Negara Lhokseumawe</p>
-                <p style="color: #6c757d;">30 Juni 2025</p>
+                <p style="color: #6c757d;">31 Juli 2025</p>
             </div>
             {content}
         </div>
