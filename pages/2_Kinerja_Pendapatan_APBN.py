@@ -103,6 +103,6 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
-- **Sumber:** OMSPAN 31 Agustus 2025
-- Data yang disajikan adalah per tanggal 31 Agustus 2025
+- **Sumber:** OMSPAN 30 September 2025
+- Data yang disajikan adalah per tanggal 30 September 2025
 """)
