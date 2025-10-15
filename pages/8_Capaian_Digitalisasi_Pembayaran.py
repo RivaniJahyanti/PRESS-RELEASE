@@ -122,7 +122,7 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 st.caption("""
 **Catatan:**
 - **Sumber:** Live Dashboard BSI
-- Data yang disajikan adalah per tanggal 31 Agustus 2025
+- Data yang disajikan adalah per tanggal 30 September 2025
 - Full Digital: Pembayaran melalui KKP/CMS/DigiPay (100% elektronik)
 - Proses Manual: Transaksi yang masih melibatkan verifikasi fisik/dokumen kertas
 """)
