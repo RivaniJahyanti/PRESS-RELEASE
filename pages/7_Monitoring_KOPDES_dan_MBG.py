@@ -179,7 +179,7 @@ with st.sidebar:
 # Header
 st.markdown("<h1 class='main-title'>MONITORING KOPDES & MBG</h1>", unsafe_allow_html=True)
 st.markdown("<h3 class='sub-header'>Lingkup KPPN Lhokseumawe</h3>", unsafe_allow_html=True)
-st.markdown(f"<p class='period'>Periode: Januari - September {datetime.now().year}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='period'>Periode: Januari - Oktober {datetime.now().year}</p>", unsafe_allow_html=True)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
