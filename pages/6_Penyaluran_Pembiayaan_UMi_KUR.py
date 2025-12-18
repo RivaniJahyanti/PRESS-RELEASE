@@ -102,7 +102,7 @@ st.markdown("<h3 class='sub-header'>Lingkup KPPN Lhokseumawe</h3>", unsafe_allow
 
 # Periode/tanggal
 current_year = datetime.now().year
-st.markdown(f"<p class='period'>Periode: Januari - Oktober {current_year}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='period'>Periode: Januari - November {current_year}</p>", unsafe_allow_html=True)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
@@ -127,8 +127,8 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
-- **Sumber:** SIKP UMi & KUR 31 Oktober 2025
-- Data yang disajikan adalah per tanggal 31 Oktober 2025
+- **Sumber:** SIKP UMi & KUR 30 November 2025
+- Data yang disajikan adalah per tanggal 30 November 2025
 - UMi: Ultra Mikro
 - KUR: Kredit Usaha Rakyat
 """)
