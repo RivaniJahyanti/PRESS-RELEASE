@@ -224,7 +224,7 @@ def display_belanja_kl_chart():
         .bkl-bar { height: 20px; border-radius: 4px; }
         .bkl-bar-realisasi { background-color: #FFC107; }
         .bkl-bar-pagu { background-color: #0D47A1; }
-        .bkl-bar-label { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #f2c305; font-size: 0.8em; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .bkl-bar-label { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #5cf205; font-size: 0.8em; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
         .bkl-stats { width: 180px; text-align: left; padding-left: 15px; font-size: 0.95em; }
         .bkl-yoy-pos { color: #2E7D32; font-weight: 600; }
         .bkl-yoy-neg { color: #C62828; font-weight: 600; }
