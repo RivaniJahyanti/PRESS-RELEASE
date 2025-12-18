@@ -222,7 +222,7 @@ def display_belanja_kl_chart():
         .bkl-bars-container { flex-grow: 1; }
         .bkl-bar-wrapper { margin-bottom: 4px; position: relative; }
         .bkl-bar { height: 20px; border-radius: 4px; }
-        .bkl-bar-realisasi { background-color: #FFC107; }
+        .bkl-bar-realisasi { background-color: #7d702; }
         .bkl-bar-pagu { background-color: #77abfc; }
         .bkl-bar-label { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #000000; font-size: 0.8em; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
         .bkl-stats { width: 180px; text-align: left; padding-left: 15px; font-size: 0.95em; }
