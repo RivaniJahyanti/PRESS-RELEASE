@@ -57,7 +57,7 @@ st.markdown("""
 
 st.markdown("""
 <div class="title-box">
-    <h1>KINERJA APBN 2025</h1>
+    <h1>KINERJA APBN 2026</h1>
     <h2>LINGKUP KPPN LHOKSEUMAWE</h2>
 </div>
 """, unsafe_allow_html=True)
