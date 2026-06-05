@@ -201,8 +201,6 @@ for item in display_data:
     <div class="pend-category">{item['cat']}</div><div><span class="pend-amount">{format_otomatis(item['amount'])}</span>
     </div></div></div>
     """, unsafe_allow_html=True)
-    except Exception as e:
-        st.error(f"Gagal memproses visualisasi Pendapatan: {e}")
 
 def display_belanja_kl_chart():
     SHEET_NAME = 'REALISASI BELANJA KL'
