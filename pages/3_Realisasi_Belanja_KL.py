@@ -89,7 +89,7 @@ st.markdown("<h3 class='sub-header'>Lingkup KPPN Lhokseumawe</h3>", unsafe_allow
 
 # Periode/tanggal
 REPORT_YEAR = 2026
-st.markdown(f"<p class='period'>Periode: Januari - Juli {REPORT_YEAR}</p>", unsafe_allow_html=True)
+st.markdown(f"<p class='period'>Periode: Januari - Agustus {REPORT_YEAR}</p>", unsafe_allow_html=True)
 
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
@@ -102,7 +102,7 @@ with st.container():
 
 # Analisis tambahan
 #with st.expander("**SUMBER:**", expanded=False):
-    #st.write("""SINTESA 30 JUNI 2025""")
+    #st.write("""SINTESA 31 Agustus 2026""")
 
 # Tombol kembali ke home
 st.markdown('<div class="back-button">', unsafe_allow_html=True)
@@ -115,6 +115,6 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # Catatan kaki
 st.caption("""
 **Catatan:**
-- **Sumber:** SINTESA 31 Juli 2026
-- Data yang disajikan adalah per tanggal 31 Juli 2026
+- **Sumber:** SINTESA 31 Agustus 2026
+- Data yang disajikan adalah per tanggal 31 Agustus 2026
 """)
